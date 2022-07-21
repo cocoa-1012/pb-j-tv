@@ -12,9 +12,30 @@ import {
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { authLoginAction } from '../../store/auth/authAction';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const submitHandler = (values) => {
+    dispatch(
+      authLoginAction(values, (isOk, result) => {
+        if (isOk) {
+          navigate('/home');
+        } else {
+          console.log('errors', result);
+        }
+      })
+    );
+  };
   return (
     <Grid
       container
@@ -31,7 +52,7 @@ const LoginForm = () => {
           Preschool Reports Communication Platform
         </Typography>
         <Box
-          component={'div'}
+          component='div'
           sx={{
             border: '1px solid #919095',
             padding: '30px',
@@ -41,7 +62,7 @@ const LoginForm = () => {
         >
           <Grid container>
             <Grid xs={12} sm={8} md={8}>
-              <form>
+              <form onSubmit={handleSubmit(submitHandler)}>
                 <div>
                   <Typography
                     variant='h6'
@@ -63,9 +84,9 @@ const LoginForm = () => {
                       <FormControl fullWidth>
                         <OutlinedInput
                           id='component-outlined'
-                          //   value={name}
-                          //   onChange={handleChange}
-
+                          {...register('username', {
+                            required: 'This field is required!',
+                          })}
                           size='small'
                         />
 
@@ -73,12 +94,12 @@ const LoginForm = () => {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  {false && (
+                  {errors?.username && (
                     <Grid container sx={{}}>
                       <Grid sm={3}></Grid>
                       <Grid sm={9}>
                         <FormHelperText sx={{ color: 'red' }}>
-                          Error
+                          {errors.username.message}
                         </FormHelperText>
                       </Grid>
                     </Grid>
@@ -97,18 +118,19 @@ const LoginForm = () => {
                         <OutlinedInput
                           id='component-outlined'
                           size='small'
-                          //   value={name}
-                          //   onChange={handleChange}
+                          {...register('password', {
+                            required: 'This field is required!',
+                          })}
                         />
                       </FormControl>
                     </Grid>
 
-                    {false && (
+                    {errors?.password && (
                       <Grid container sx={{}}>
                         <Grid sm={3}></Grid>
                         <Grid sm={9}>
                           <FormHelperText sx={{ color: 'red' }}>
-                            Error
+                            {errors.password.message}
                           </FormHelperText>
                         </Grid>
                       </Grid>
@@ -118,7 +140,7 @@ const LoginForm = () => {
                 <Box component={'div'} sx={{ my: '5px' }}>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox {...register('remember')} />}
                       label='Remember me'
                     />
                   </FormGroup>

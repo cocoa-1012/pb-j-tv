@@ -1,9 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './page/Login/Login';
 
 const App = () => {
   return (
     <div>
-      <h2>Hello</h2>
+      <Router>
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 };

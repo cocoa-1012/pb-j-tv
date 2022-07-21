@@ -1,21 +1,10 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
-import { createUseStyles } from 'react-jss';
-const useStyles = createUseStyles({
-  main: {
-    height: 'auto',
-  },
-  '@media screen and (min-width: 900px)': {
-    main: {
-      height: '100vh',
-    },
-  },
-});
-const logo =
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/1024px-HP_logo_2012.svg.png';
+
+const logo = 'http://dev.preschoolreports.com/images/loginlogo.png';
 const LoginLogo = () => {
-  const classes = useStyles();
+ 
   return (
     <Grid
       container
@@ -24,8 +13,11 @@ const LoginLogo = () => {
       sx={{
         background: `linear-gradient(139deg,#e1d0e4,#e1d0e4, #fcf9fd)`,
         py: '30px',
+        height: {
+          xs: 'auto',
+          md: '100vh',
+        },
       }}
-      className={classes.main}
       xs={12}
       height={'100vh'}
     >
@@ -34,8 +26,8 @@ const LoginLogo = () => {
         sx={{
           height: 300,
           width: 350,
-          maxHeight: { xs: 233, md: 167 },
-          maxWidth: { xs: 350, md: 250 },
+          maxHeight: { xs: 233, md: 350 },
+          maxWidth: { xs: 350, md: 300 },
         }}
       >
         <Box

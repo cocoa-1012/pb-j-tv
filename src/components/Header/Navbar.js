@@ -46,8 +46,5 @@ const Navbar = () => {
     </nav>
   );
 };
-const Divider = () => {
-  return '|';
-};
 
 export default Navbar;

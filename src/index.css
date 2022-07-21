@@ -3,6 +3,7 @@
   /* Linking to the font file */
   src: url('./assets/font/QwitcherBychen Regular.woff') format('woff');
 }
-body {
+* {
   margin: 0;
+  padding: 0;
 }

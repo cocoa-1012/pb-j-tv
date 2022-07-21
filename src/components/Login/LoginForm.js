@@ -29,7 +29,7 @@ const LoginForm = () => {
     dispatch(
       authLoginAction(values, (isOk, result) => {
         if (isOk) {
-          navigate('/home');
+          navigate('/accounts');
         } else {
           console.log('errors', result);
         }

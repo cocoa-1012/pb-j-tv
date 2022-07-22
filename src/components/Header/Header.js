@@ -7,9 +7,24 @@ const logo = 'http://dev.preschoolreports.com/images/loginlogo.png';
 const Header = ({ isNavShow = true }) => {
   return (
     <Box component={'div'} sx={{ background: '#e1d0e4', py: 2 }}>
-      <Container>
+      <Container disableGutters={true}>
         <TopNavBar isNavShow={isNavShow} />
-        <Stack direction='row' spacing={4} sx={{ alignItems: 'center' }}>
+        <Stack
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          spacing={{
+            xs: 0,
+            sm: 4,
+          }}
+          sx={{
+            alignItems: {
+              xs: 'start',
+              sm: 'center',
+            },
+          }}
+        >
           <Box
             component='div'
             sx={{

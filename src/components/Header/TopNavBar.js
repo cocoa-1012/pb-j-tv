@@ -1,44 +1,57 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 
-import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
-const useStyles = createUseStyles({
-  nav: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-  link: {
-    textDecoration: 'none',
-    margin: '0 10px',
-  },
-});
+
 const TopNavBar = ({ isNavShow }) => {
-  const classes = useStyles();
+  const link = {
+    textDecoration: 'none',
+    margin: {
+      xs: '0 2px',
+      sm: '0 10px',
+      md: '0 15px',
+    },
+  };
   return (
-    <nav className={classes.nav}>
-      <Stack spacing={0} direction='row' divider={<Divider />}>
-        {isNavShow ? (
-          <>
-            <Link to='/' className={classes.link}>
-              Return to Master
-            </Link>
-            <Link to='/' className={classes.link}>
-              Lobby Display
-            </Link>
-            <Link to='/' className={classes.link}>
-              Back Display
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to='/' className={classes.link}>
-              Logout
-            </Link>
-          </>
+    <Box
+      sx={{
+        display: {
+          xs: 'flex',
+        },
+        justifyContent: {
+          xs: 'normal',
+          sm: 'end',
+        },
+      }}
+    >
+      <Stack
+        spacing={0}
+        direction='row'
+        divider={<Divider />}
+        git
+        sx={{ flexWrap: 'wrap', gap: { xs: '10px', sm: '0' } }}
+      >
+        {isNavShow && (
+          <Box component={Link} to='/' sx={link}>
+            Return to Master
+          </Box>
         )}
+        {isNavShow && (
+          <Box component={Link} to='/' sx={link}>
+            Lobby Display
+          </Box>
+        )}
+        {isNavShow && (
+          <Box component={Link} to='/' sx={link}>
+            Back Display
+          </Box>
+        )}
+
+        <Box component={Link} to='/' sx={link}>
+          Logout
+        </Box>
       </Stack>
-    </nav>
+    </Box>
   );
 };
 const Divider = () => {

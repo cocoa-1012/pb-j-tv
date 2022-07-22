@@ -30,7 +30,14 @@ const LINKS = [
 const Navbar = () => {
   return (
     <nav>
-      <Stack spacing={1} direction='row'>
+      <Stack
+        spacing={{
+          xs: 0,
+          sm: 1,
+        }}
+        direction={{ xs: 'row', sm: 'row' }}
+        sx={{ flexWrap: 'wrap', gap: '10px' }}
+      >
         {LINKS.map((link) => {
           return (
             <Box

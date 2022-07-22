@@ -1,8 +1,8 @@
 // import { faker } from '@faker-js/faker';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import AccountsHeader from './AccountsHeader';
 import AccountTable from './AccountTable';
-import { data as DATA } from './data';
 // const rows = Array.from(new Array(100).fill(null)).map((_, index) => {
 //   return {
 //     id: index + 1,
@@ -16,8 +16,7 @@ import { data as DATA } from './data';
 //   };
 // });
 const AccountsContent = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => setData(DATA), []);
+  const data = useSelector((state) => state.accounts);
 
   const [search, setSearch] = useState('');
   const filterData = useMemo(() => {

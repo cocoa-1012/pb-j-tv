@@ -18,7 +18,7 @@ const AccountTable = ({ data }) => {
 
         return (
           <>
-            <Link to={`/item/${row.id}`}>{formattedValue}</Link>
+            <Link to={`/dashboard/${row.id}`}>{formattedValue}</Link>
           </>
         );
       },
@@ -61,8 +61,8 @@ const AccountTable = ({ data }) => {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <div style={{ display: 'flex', width: '100%' }}>
-        <div style={{ flexGrow: 1 }}>
+      <Box sx={{ display: 'flex', width: '100%' }}>
+        <Box sx={{ flexGrow: 1 }}>
           <DataGrid
             rows={data}
             columns={columns}
@@ -75,8 +75,8 @@ const AccountTable = ({ data }) => {
             style={{ border: 'none' }}
             autoHeight
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   );
 };

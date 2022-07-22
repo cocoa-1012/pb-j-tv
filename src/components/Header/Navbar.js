@@ -23,7 +23,7 @@ const LINKS = [
   },
   {
     label: 'Display Cams',
-    url: '/display-cams',
+    url: '/display-cameras',
   },
 ];
 

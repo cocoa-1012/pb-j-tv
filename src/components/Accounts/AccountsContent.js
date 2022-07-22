@@ -1,9 +1,65 @@
-import React from 'react';
-
+// import { faker } from '@faker-js/faker';
+import React, { useEffect, useMemo, useState } from 'react';
+import AccountsHeader from './AccountsHeader';
+import AccountTable from './AccountTable';
+import { data as DATA } from './data';
+// const rows = Array.from(new Array(100).fill(null)).map((_, index) => {
+//   return {
+//     id: index + 1,
+//     centerName: faker.company.bs(),
+//     username: faker.name.findName().split(' ').join('').toLocaleLowerCase(),
+//     password: faker.hacker.adjective(),
+//     contact: faker.phone.number(),
+//     email: faker.internet.email('a', 'b'),
+//     location: faker.address.country(),
+//     viewPage: index + 1,
+//   };
+// });
 const AccountsContent = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => setData(DATA), []);
+
+  const [search, setSearch] = useState('');
+  const filterData = useMemo(() => {
+    if (!search) return data;
+    const columnsProps = [
+      'centerName',
+      'username',
+      'contact',
+      'email',
+      'location',
+    ];
+
+    console.time('search');
+
+    const filterIds = columnsProps.reduce((acc, col) => {
+      data.forEach((curr) => {
+        if (
+          curr?.[col]?.toLowerCase().includes(search.trim().toLowerCase()) &&
+          !acc.includes(curr.id)
+        ) {
+          acc.push(curr.id);
+        }
+      });
+
+      return acc;
+    }, []);
+
+    const filterItems = data.reduce((acc, curr) => {
+      if (filterIds.includes(curr.id)) {
+        acc.push(curr);
+      }
+      return acc;
+    }, []);
+    console.timeEnd('search');
+
+    return filterItems;
+  }, [search, data]);
+
   return (
     <div>
-      <h2>Account content</h2>
+      <AccountsHeader search={search} setSearch={setSearch} />
+      <AccountTable data={filterData} />
     </div>
   );
 };

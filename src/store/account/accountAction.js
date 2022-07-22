@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import shortid from 'shortid';
 import axiosInstance from '../../utilities/axiosInstance';
-import { add, fetch, remove } from './accountSlice';
+import { add, fetchData, remove } from './accountSlice';
 
 import ACCOUNTS_DATA from './data';
 
@@ -17,7 +17,7 @@ export const fetchAllAccountsAction = () => async (dispatch) => {
       `https://jsonplaceholder.typicode.com/todos`
     );
 
-    dispatch(fetch(ACCOUNTS_DATA));
+    dispatch(fetchData(ACCOUNTS_DATA));
   } catch (error) {
     console.log(error.message);
   }

@@ -6,7 +6,7 @@ export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    fetch: (state, action) => {
+    fetchData: (state, action) => {
       return action.payload;
     },
     add: (state, action) => {
@@ -24,6 +24,6 @@ export const accountSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { add, fetch, remove } = accountSlice.actions;
+export const { add, fetchData, remove } = accountSlice.actions;
 
 export default accountSlice.reducer;

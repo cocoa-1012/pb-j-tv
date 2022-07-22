@@ -1,10 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
+import logo from '../../assets/images/logo.png';
 
-const logo = 'http://dev.preschoolreports.com/images/loginlogo.png';
 const LoginLogo = () => {
- 
   return (
     <Grid
       container

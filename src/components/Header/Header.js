@@ -1,9 +1,10 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
+import logo from '../../assets/images/logo.png';
 import Navbar from './Navbar';
 import TopNavBar from './TopNavBar';
-const logo = 'http://dev.preschoolreports.com/images/loginlogo.png';
+
 const Header = ({ isNavShow = true }) => {
   return (
     <Box component={'div'} sx={{ background: '#e1d0e4', py: 2 }}>

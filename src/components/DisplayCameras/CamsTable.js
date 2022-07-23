@@ -1,25 +1,20 @@
-import { faker } from '@faker-js/faker';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Button, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
-import shortid from 'shortid';
-const rows = Array.from(new Array(25).fill(null)).map((_, index) => {
-  return {
-    id: shortid(),
-    name: faker.company.bs(),
-    ip: faker.internet.ip(),
-    enable: Math.ceil(Math.random() * 2) === 1,
-    blank: Math.ceil(Math.random() * 2) === 1,
-  };
-});
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllCamerasAction } from '../../store/cameras/camerasAction';
 
 const CamsTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
-  const [data, setData] = useState([]);
+  const data = useSelector((state) => state.cameras);
 
-  useEffect(() => setData(rows), []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllCamerasAction());
+  }, [dispatch]);
 
   const columns = [
     { headerName: 'WebCams:', field: 'name', width: 250, flex: 1 },

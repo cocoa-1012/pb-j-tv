@@ -4,8 +4,10 @@ import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
+import RightSlideShow from './RightSlideShow';
 const Top = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Box component='div' sx={{ borderBottom: '1px solid green', pb: '10px' }}>
@@ -25,7 +27,10 @@ const Top = () => {
           <Stack direction='row' spacing={1} alignItems='center'>
             <Stack direction='row' spacing={0} alignItems='center'>
               <Box component='p'>Display Slide Show</Box>
-              <Checkbox defaultChecked />
+              <Checkbox
+                checked={isOpen}
+                onChange={(e) => setIsOpen(e.target.checked)}
+              />
             </Stack>
             <div>
               <Button
@@ -42,6 +47,7 @@ const Top = () => {
           </Stack>
         </Stack>
       </Box>
+      <RightSlideShow isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

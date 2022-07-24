@@ -1,9 +1,18 @@
-import { Button, Stack } from '@mui/material';
+import {
+  Button,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+} from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate } from 'react-router-dom';
 const LINKS = [
   {
     label: 'Dashboard',
@@ -28,6 +37,8 @@ const LINKS = [
 ];
 
 const Navbar = () => {
+  const [isShow, setIsShow] = useState();
+  const navigate = useNavigate();
   return (
     <nav>
       <Stack
@@ -36,7 +47,11 @@ const Navbar = () => {
           sm: 1,
         }}
         direction={{ xs: 'row', sm: 'row' }}
-        sx={{ flexWrap: 'wrap', gap: '10px' }}
+        sx={{
+          flexWrap: 'wrap',
+          gap: '10px',
+          display: { xs: 'none', md: 'flex' },
+        }}
       >
         {LINKS.map((link) => {
           return (
@@ -50,6 +65,44 @@ const Navbar = () => {
           );
         })}
       </Stack>
+      <Box
+        component={'div'}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          ':hover': { cursor: 'pointer' },
+        }}
+      >
+        <MenuIcon onClick={() => setIsShow(true)} />
+      </Box>
+      <>
+        <Drawer anchor={'left'} open={isShow} onClose={() => setIsShow(false)}>
+          <Box
+            sx={{
+              width: 200,
+            }}
+            role='presentation'
+            onClick={() => setIsShow(false)}
+            onKeyDown={() => setIsShow(false)}
+          >
+            <List>
+              {LINKS.map((item) => (
+                <>
+                  <ListItem
+                    key={Math.random()}
+                    disablePadding
+                    onClick={() => navigate(item.url)}
+                  >
+                    <ListItemButton>
+                      <ListItemText primary={item.label} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider />
+                </>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
+      </>
     </nav>
   );
 };

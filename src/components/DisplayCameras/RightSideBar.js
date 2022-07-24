@@ -1,41 +1,38 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
 import React from 'react';
-const RightSlideShow = ({ isOpen, setIsOpen }) => {
+const RightSideBar = ({ isOpen, setIsOpen }) => {
   return (
     <>
-      <Drawer anchor='right' open={isOpen} onClose={() => setIsOpen(false)}>
-        <Box
+      <Box
+        component='div'
+        sx={{
+          width: {
+            xs: 280,
+            sm: 400,
+          },
+          boxSizing: 'border-box',
+          padding: '10px',
+          mb: 5,
+        }}
+      >
+        <Typography variant='h4' gutterBottom component='div'>
+          Display Layout
+        </Typography>
+        <Typography
+          variant='h6'
+          gutterBottom
           component='div'
-          sx={{
-            width: {
-              xs: 280,
-              sm: 400,
-            },
-            boxSizing: 'border-box',
-            padding: '10px',
-            mb: 5,
-          }}
+          sx={{ mb: '12px' }}
         >
-          <Typography variant='h4' gutterBottom component='div'>
-            Display Layout
-          </Typography>
-          <Typography
-            variant='h6'
-            gutterBottom
-            component='div'
-            sx={{ mb: '12px' }}
-          >
-            Chose how you want cameras to show on display
-          </Typography>
-          <div>
-            <CamDisplay rowCount={1} column={1} />
-            <CamDisplay rowCount={3} column={3} />
-            <CamDisplay rowCount={3} column={4} />
-            <CamDisplay rowCount={4} column={4} />
-          </div>
-        </Box>
-      </Drawer>
+          Chose how you want cameras to show on display
+        </Typography>
+        <div>
+          <CamDisplay rowCount={1} column={1} />
+          <CamDisplay rowCount={3} column={3} />
+          <CamDisplay rowCount={3} column={4} />
+          <CamDisplay rowCount={4} column={4} />
+        </div>
+      </Box>
     </>
   );
 };
@@ -113,4 +110,4 @@ const CamDisplay = ({ rowCount = 1, column = 1 }) => {
   );
 };
 
-export default RightSlideShow;
+export default RightSideBar;

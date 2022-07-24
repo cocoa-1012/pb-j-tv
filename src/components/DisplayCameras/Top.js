@@ -5,7 +5,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import RightSlideShow from './RightSlideShow';
 const Top = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -47,7 +46,6 @@ const Top = () => {
           </Stack>
         </Stack>
       </Box>
-      <RightSlideShow isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

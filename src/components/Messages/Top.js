@@ -1,7 +1,9 @@
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import { Button, Grid, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
+import ConfigureForm from './ConfigureForm/ConfigureForm';
 const Top = () => {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Grid container>
@@ -16,11 +18,15 @@ const Top = () => {
               <FolderCopyIcon />
             </div>
             <div>
-              <Button variant='contained'>Configure</Button>
+              <Button variant='contained' onClick={() => setOpen(true)}>
+                Configure
+              </Button>
             </div>
           </Stack>
         </Grid>
       </Grid>
+
+      <ConfigureForm open={open} setOpen={setOpen} />
     </div>
   );
 };

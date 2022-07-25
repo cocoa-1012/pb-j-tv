@@ -33,8 +33,13 @@ const ConfigureForm = ({ open, setOpen }) => {
     transform: 'translate(-50%, -50%)',
     width: '50%',
     bgcolor: 'background.paper',
-
     p: 4,
+    overflowX: 'auto',
+    height: {
+      xs: '60vh',
+      md: '80vh',
+      xl: 'auto',
+    },
   };
 
   return (

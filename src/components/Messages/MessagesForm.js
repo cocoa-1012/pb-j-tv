@@ -10,6 +10,8 @@ import {
 import { Box } from '@mui/system';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { addMessageAction } from '../../store/messages/messageAction';
 import SelectCategory from './SelectCategory';
 import SelectMessage from './SelectMessage';
 
@@ -21,11 +23,28 @@ const MessagesForm = () => {
     handleSubmit,
     setValue,
     clearErrors,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      category: '',
+      automatedMessage: '',
+    },
+  });
+
+  const dispatch = useDispatch();
 
   const submitHandler = (values) => {
     // all values
     console.log(values);
+    dispatch(
+      addMessageAction(values, (isOk, result) => {
+        if (isOk) {
+          console.log('ok');
+        } else {
+          console.log('is not ok.');
+          console.log(result);
+        }
+      })
+    );
   };
 
   return (

@@ -14,6 +14,8 @@ import {
 import { Box } from '@mui/system';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { addMessageAction } from '../../../store/messages/messageAction';
 import CustomSelect from './CustomSelect';
 const ConfigureForm = ({ open, setOpen }) => {
   const {
@@ -23,8 +25,21 @@ const ConfigureForm = ({ open, setOpen }) => {
     handleSubmit,
     setValue,
   } = useForm();
-
-  const submitHandler = (values) => {};
+  const dispatch = useDispatch();
+  const submitHandler = (values) => {
+    // all values
+    console.log(values);
+    dispatch(
+      addMessageAction(values, (isOk, result) => {
+        if (isOk) {
+          console.log('ok');
+        } else {
+          console.log('is not ok.');
+          console.log(result);
+        }
+      })
+    );
+  };
 
   const style = {
     position: 'absolute',

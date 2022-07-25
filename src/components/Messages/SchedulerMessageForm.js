@@ -17,6 +17,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { addMessageAction } from '../../store/messages/messageAction';
 
 const SchedulerMessageForm = () => {
   const {
@@ -35,8 +37,20 @@ const SchedulerMessageForm = () => {
       duration: 0,
     },
   });
+  const dispatch = useDispatch();
   const submitHandler = (values) => {
+    // all values
     console.log(values);
+    dispatch(
+      addMessageAction(values, (isOk, result) => {
+        if (isOk) {
+          console.log('ok');
+        } else {
+          console.log('is not ok.');
+          console.log(result);
+        }
+      })
+    );
   };
 
   const dayChangeHandler = (event, isChecked) => {

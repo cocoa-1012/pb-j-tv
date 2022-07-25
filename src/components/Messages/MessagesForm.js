@@ -20,9 +20,11 @@ const MessagesForm = () => {
     watch,
     handleSubmit,
     setValue,
+    clearErrors,
   } = useForm();
 
   const submitHandler = (values) => {
+    // all values
     console.log(values);
   };
 
@@ -34,87 +36,96 @@ const MessagesForm = () => {
             <Grid xs={12} md={6}>
               <Typography>Priority:</Typography>
               <Stack spacing={1} component='div'>
-                <Stack spacing={2} direction='row'>
-                  <FormControl fullWidth>
+                <div>
+                  <Stack spacing={2} direction='row'>
+                    <FormControl fullWidth>
+                      <OutlinedInput
+                        id='component-outlined'
+                        {...register('important', {
+                          required: 'This field is required!',
+                        })}
+                        size='small'
+                      />
+                    </FormControl>
+                    <Button variant='contained' sx={{ width: '130px' }}>
+                      Important
+                    </Button>
+                  </Stack>
+                  {errors?.important && (
+                    <FormHelperText sx={{ color: 'red' }}>
+                      {errors.important.message}
+                    </FormHelperText>
+                  )}
+                </div>
+                <div>
+                  <Stack spacing={2} direction='row'>
+                    <FormControl fullWidth>
+                      <OutlinedInput
+                        id='component-outlined'
+                        {...register('urgent', {
+                          required: 'This field is required!',
+                        })}
+                        size='small'
+                      />
+                    </FormControl>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      sx={{ width: '130px' }}
+                    >
+                      Urgent
+                    </Button>
+                  </Stack>
+                  {errors?.urgent && (
+                    <FormHelperText sx={{ color: 'red' }}>
+                      {errors.urgent.message}
+                    </FormHelperText>
+                  )}
+                </div>
+                <div>
+                  <Stack spacing={2} direction='row'>
                     <OutlinedInput
                       id='component-outlined'
-                      {...register('important', {
+                      {...register('emergency', {
                         required: 'This field is required!',
                       })}
                       size='small'
-                    />
-                    {errors?.important && (
-                      <FormHelperText sx={{ color: 'red' }}>
-                        {errors.important.message}
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                  <Button variant='contained' sx={{ width: '130px' }}>
-                    Important
-                  </Button>
-                </Stack>
-                <Stack spacing={2} direction='row'>
-                  <FormControl fullWidth>
-                    <OutlinedInput
-                      id='component-outlined'
-                      {...register('urgent', {
-                        required: 'This field is required!',
-                      })}
-                      size='small'
+                      fullWidth
                     />
 
-                    {errors?.urgent && (
-                      <FormHelperText sx={{ color: 'red' }}>
-                        {errors.urgent.message}
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                  <Button
-                    variant='contained'
-                    color='secondary'
-                    sx={{ width: '130px' }}
-                  >
-                    Urgent
-                  </Button>
-                </Stack>
-                <Stack spacing={2} direction='row'>
-                  <OutlinedInput
-                    id='component-outlined'
-                    {...register('emergency', {
-                      required: 'This field is required!',
-                    })}
-                    size='small'
-                    fullWidth
-                  />
-
+                    <Button
+                      variant='contained'
+                      color='info'
+                      sx={{ width: '130px' }}
+                    >
+                      Emergency
+                    </Button>
+                  </Stack>
                   {errors?.emergency && (
                     <FormHelperText sx={{ color: 'red' }}>
                       {errors.emergency.message}
                     </FormHelperText>
                   )}
-
-                  <Button
-                    variant='contained'
-                    color='info'
-                    sx={{ width: '130px' }}
-                  >
-                    Emergency
-                  </Button>
-                </Stack>
-                <SelectCategory
-                  {...register('category', {
-                    required: 'This field is required!',
-                  })}
-                  onChange={(e) => {
-                    setValue('category', e.target.value);
-                  }}
-                  value={watch('category')}
-                />
-                {errors?.category && (
-                  <FormHelperText sx={{ color: 'red' }}>
-                    {errors.category.message}
-                  </FormHelperText>
-                )}
+                </div>
+                <div>
+                  <SelectCategory
+                    {...register('category', {
+                      required: 'This field is required!',
+                    })}
+                    onChange={(e) => {
+                      setValue('category', e.target.value);
+                      if (errors?.category) {
+                        clearErrors('category');
+                      }
+                    }}
+                    value={watch('category')}
+                  />
+                  {errors?.category && (
+                    <FormHelperText sx={{ color: 'red' }}>
+                      {errors.category.message}
+                    </FormHelperText>
+                  )}
+                </div>
               </Stack>
             </Grid>
             <Grid xs={12} md={6} sx={{ pl: { xs: 0, md: 2 } }}>
@@ -122,22 +133,25 @@ const MessagesForm = () => {
                 <div>
                   <Typography>Automated Messages:</Typography>
                   <SelectMessage
-                    {...register('message', {
+                    {...register('automatedMessage', {
                       required: 'This field is required!',
                     })}
                     onChange={(e) => {
-                      setValue('message', e.target.value);
+                      setValue('automatedMessage', e.target.value);
+                      if (errors?.automatedMessage) {
+                        clearErrors('automatedMessage');
+                      }
                     }}
-                    value={watch('message')}
+                    value={watch('automatedMessage')}
                   />
-                  {errors?.message && (
+                  {errors?.automatedMessage && (
                     <FormHelperText sx={{ color: 'red' }}>
-                      {errors.message.message}
+                      {errors.automatedMessage.message}
                     </FormHelperText>
                   )}
                 </div>
                 <div>
-                  <Typography>Automated Messages:</Typography>
+                  <Typography>Custom Messages:</Typography>
 
                   <OutlinedInput
                     placeholder='Automated Messages:'
@@ -147,14 +161,33 @@ const MessagesForm = () => {
                     fullWidth
                     {...register('customMessage', {
                       required: 'This field is required!',
+                      maxLength: {
+                        value: 80,
+                        message: 'Maximum 80 is allowed!',
+                      },
                     })}
                   />
 
-                  {errors?.customMessage && (
-                    <FormHelperText sx={{ color: 'red' }}>
-                      {errors.customMessage.message}
-                    </FormHelperText>
-                  )}
+                  <Stack
+                    direction='row'
+                    justifyContent={
+                      errors?.customMessage ? 'space-between' : 'end'
+                    }
+                  >
+                    {errors?.customMessage && (
+                      <FormHelperText sx={{ color: 'red' }}>
+                        {errors.customMessage.message}
+                      </FormHelperText>
+                    )}
+
+                    {watch('customMessage')?.length <= 80 && (
+                      <Box>
+                        <FormHelperText sx={{ color: 'red' }}>
+                          {80 - watch('customMessage').length} characters left
+                        </FormHelperText>
+                      </Box>
+                    )}
+                  </Stack>
                 </div>
               </Stack>
             </Grid>

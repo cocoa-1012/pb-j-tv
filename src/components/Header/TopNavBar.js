@@ -16,7 +16,8 @@ const TopNavBar = ({ isNavShow }) => {
     <Box
       sx={{
         display: {
-          xs: 'flex',
+          xs: 'none',
+          sm: 'flex',
         },
         justifyContent: {
           xs: 'normal',

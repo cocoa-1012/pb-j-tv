@@ -7,7 +7,10 @@ import TopNavBar from './TopNavBar';
 
 const Header = ({ isNavShow = true }) => {
   return (
-    <Box component={'div'} sx={{ background: '#e1d0e4', py: 2 }}>
+    <Box
+      component={'div'}
+      sx={{ background: '#e1d0e4', py: 2, px: { xs: 2, sm: 0 } }}
+    >
       <Container disableGutters={true}>
         <TopNavBar isNavShow={isNavShow} />
         <Stack

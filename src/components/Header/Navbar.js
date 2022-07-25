@@ -41,6 +41,26 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const LINKS_WITH_TOPBAR_LINKS = [
+    ...LINKS,
+    {
+      label: 'Return to Master',
+      url: '/',
+    },
+    {
+      label: 'Lobby Display',
+      url: '/',
+    },
+    {
+      label: 'Back Display',
+      url: '/',
+    },
+    {
+      label: 'Logout',
+      url: '/',
+    },
+  ];
+
   return (
     <nav>
       <Stack
@@ -92,7 +112,7 @@ const Navbar = () => {
             onKeyDown={() => setIsShow(false)}
           >
             <List>
-              {LINKS.map((item) => (
+              {LINKS_WITH_TOPBAR_LINKS.map((item) => (
                 <>
                   <ListItem
                     key={Math.random()}

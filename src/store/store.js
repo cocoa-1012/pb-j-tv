@@ -3,6 +3,7 @@ import accountSlice from './account/accountSlice';
 import authSlice from './auth/authSlice';
 import camerasSlice from './cameras/camerasSlice';
 import messageSlice from './messages/messageSlice';
+import slidePhotoSlice from './slidePhoto/slidePhotoSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     accounts: accountSlice,
     messages: messageSlice,
     cameras: camerasSlice,
+    slidePhotos: slidePhotoSlice,
   },
 });
 

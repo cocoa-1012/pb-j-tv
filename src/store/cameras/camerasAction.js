@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import shortid from 'shortid';
 import axiosInstance from '../../utilities/axiosInstance';
-import { add, fetchData, remove } from './camerasSlice';
+import { add, changeLayout, fetchData, remove } from './camerasSlice';
 
 import CAMERAS from './data';
 
@@ -45,8 +45,23 @@ export const addCamerasAction =
 
 export const removeCamerasAction = (id) => async (dispatch) => {
   try {
+    const res = await axiosInstance.get(
+      `https://jsonplaceholder.typicode.com/todos/1`
+    );
     dispatch(remove({ id }));
   } catch (error) {
     console.log(error.message);
   }
 };
+export const changeCamerasLayoutAction =
+  ({ rows, cols }) =>
+  async (dispatch) => {
+    try {
+      const res = await axiosInstance.get(
+        `https://jsonplaceholder.typicode.com/todos/1`
+      );
+      dispatch(changeLayout({ rows, cols }));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };

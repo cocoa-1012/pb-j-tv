@@ -1,5 +1,7 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCamerasLayoutAction } from '../../store/cameras/camerasAction';
 const RightSideBar = ({ isOpen, setIsOpen }) => {
   return (
     <>
@@ -40,6 +42,17 @@ const RightSideBar = ({ isOpen, setIsOpen }) => {
 const CamDisplay = ({ rowCount = 1, column = 1 }) => {
   const height = 200;
   const width = 230;
+  const { rows, cols } = useSelector((state) => state.cameras.layout);
+  const dispatch = useDispatch();
+
+  const isEnable = useMemo(() => {
+    return rows === rowCount && cols === column;
+  }, [rowCount, column, rows, cols]);
+
+  const clickHandler = () => {
+    if (isEnable) return;
+    dispatch(changeCamerasLayoutAction({ rows: rowCount, cols: column }));
+  };
 
   return (
     <Box component='div' sx={{ my: 3 }}>
@@ -103,7 +116,13 @@ const CamDisplay = ({ rowCount = 1, column = 1 }) => {
           )}
         </Box>
         <div>
-          <Button variant='contained'>Enable</Button>
+          <Button
+            variant='contained'
+            color={!isEnable ? 'primary' : 'secondary'}
+            onClick={clickHandler}
+          >
+            {!isEnable ? 'Enable' : 'Disable'}
+          </Button>
         </div>
       </Stack>
     </Box>

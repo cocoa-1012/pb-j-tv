@@ -5,6 +5,7 @@ import Dashboard from './page/Dashboard/Dashboard';
 import DisplayCameras from './page/DisplayCameras/DisplayCameras';
 import LoginPage from './page/Login/Login';
 import Messages from './page/Messages/Messages';
+import PhotoSlide from './page/PhotoSlide/PhotoSlide';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/dashboard/:id' element={<Dashboard />} />
           <Route path='/display-cameras' element={<DisplayCameras />} />
           <Route path='/message' element={<Messages />} />
+          <Route path='/photo-slide' element={<PhotoSlide />} />
         </Routes>
       </Router>
     </div>

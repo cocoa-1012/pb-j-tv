@@ -4,9 +4,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { slideShowCamerasLayoutAction } from '../../store/cameras/camerasAction';
 const Top = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const isSlideShow = useSelector((state) => state.cameras.slide);
+  const dispatch = useDispatch();
+  const changeHandler = (e) => {
+    dispatch(slideShowCamerasLayoutAction(e.target.checked));
+  };
   return (
     <>
       <Box component='div' sx={{ borderBottom: '1px solid green', pb: '10px' }}>
@@ -26,10 +32,7 @@ const Top = () => {
           <Stack direction='row' spacing={1} alignItems='center'>
             <Stack direction='row' spacing={0} alignItems='center'>
               <Box component='p'>Display Slide Show</Box>
-              <Checkbox
-                checked={isOpen}
-                onChange={(e) => setIsOpen(e.target.checked)}
-              />
+              <Checkbox checked={isSlideShow} onChange={changeHandler} />
             </Stack>
             <div>
               <Button

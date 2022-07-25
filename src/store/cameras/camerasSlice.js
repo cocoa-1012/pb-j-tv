@@ -6,6 +6,7 @@ const initialState = {
     rows: 1,
     cols: 1,
   },
+  slide: false,
 };
 
 export const camerasSlice = createSlice({
@@ -30,10 +31,14 @@ export const camerasSlice = createSlice({
     changeLayout: (state, action) => {
       state.layout = action.payload;
     },
+    updateSlide: (state, action) => {
+      state.slide = !!action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { add, fetchData, remove, changeLayout } = camerasSlice.actions;
+export const { add, fetchData, remove, changeLayout, updateSlide } =
+  camerasSlice.actions;
 
 export default camerasSlice.reducer;

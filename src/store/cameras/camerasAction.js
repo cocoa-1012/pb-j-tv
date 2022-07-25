@@ -1,7 +1,13 @@
 import { faker } from '@faker-js/faker';
 import shortid from 'shortid';
 import axiosInstance from '../../utilities/axiosInstance';
-import { add, changeLayout, fetchData, remove } from './camerasSlice';
+import {
+  add,
+  changeLayout,
+  fetchData,
+  remove,
+  updateSlide,
+} from './camerasSlice';
 
 import CAMERAS from './data';
 
@@ -65,3 +71,13 @@ export const changeCamerasLayoutAction =
       console.log(error.message);
     }
   };
+export const slideShowCamerasLayoutAction = (value) => async (dispatch) => {
+  try {
+    const res = await axiosInstance.get(
+      `https://jsonplaceholder.typicode.com/todos/1`
+    );
+    dispatch(updateSlide(value));
+  } catch (error) {
+    console.log(error.message);
+  }
+};

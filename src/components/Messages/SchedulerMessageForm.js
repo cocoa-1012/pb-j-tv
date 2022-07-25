@@ -125,7 +125,7 @@ const SchedulerMessageForm = () => {
             )}
           </Layout>
         </Grid>
-        <Grid xs={7} md={3}>
+        <Grid xs={7} md={2}>
           <Layout text={'Date and time'}>
             <div>
               <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -151,7 +151,7 @@ const SchedulerMessageForm = () => {
             </div>
           </Layout>
         </Grid>
-        <Grid xs={8} sm={5} md={2}>
+        <Grid xs={12} sm={5} md={2}>
           <Layout text={'Days'}>
             <div>
               <Stack
@@ -183,14 +183,14 @@ const SchedulerMessageForm = () => {
             </div>
           </Layout>
         </Grid>
-        <Grid xs={4} md={1}>
+        <Grid xs={6} md={2}>
           <Layout text={'Duration'}>
             <Stack direction='row' spacing={0} alignItems='center'>
               <OutlinedInput
                 placeholder=''
                 size='small'
                 type='number'
-                sx={{ width: '50px' }}
+                // sx={{ width: '80px' }}
                 {...register('duration', {
                   required: 'This field is required!',
                 })}
@@ -201,7 +201,7 @@ const SchedulerMessageForm = () => {
             </Stack>
           </Layout>
         </Grid>
-        <Grid xs={4} sm={3} md={1}>
+        <Grid xs={6} sm={3} md={1}>
           <Layout>
             <Button type='submit' variant='contained'>
               Add

@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import {
   Button,
   FormControl,
@@ -17,6 +16,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addMessageAction } from '../../../store/messages/messageAction';
 import CustomSelect from './CustomSelect';
+import PriorityItem from './PriorityItem';
+import SoundItem from './SoundItem';
 const ConfigureForm = ({ open, setOpen }) => {
   const {
     register,
@@ -46,7 +47,11 @@ const ConfigureForm = ({ open, setOpen }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '50%',
+    width: {
+      xs: '70%',
+      md: '55%',
+      xl: '50%',
+    },
     bgcolor: 'background.paper',
     p: 4,
     overflowX: 'auto',
@@ -81,11 +86,12 @@ const ConfigureForm = ({ open, setOpen }) => {
           </Box>
           <form onSubmit={handleSubmit(submitHandler)}>
             <Grid container>
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} sx={{ mb: { xs: 2, md: 0 } }}>
                 <Stack spacing={1} component='div'>
                   <Typography>Priority:</Typography>
-                  <Stack spacing={2} direction='row'>
-                    <FormControl fullWidth>
+                  <div></div>
+                  <div>
+                    <PriorityItem buttonText={'Important'}>
                       <OutlinedInput
                         id='component-outlined'
                         {...register('important', {
@@ -93,18 +99,15 @@ const ConfigureForm = ({ open, setOpen }) => {
                         })}
                         size='small'
                       />
-                    </FormControl>
-                    <Button variant='contained' sx={{ width: '130px' }}>
-                      Important
-                    </Button>
-                  </Stack>
-                  {errors?.important && (
-                    <FormHelperText sx={{ color: 'red' }}>
-                      {errors.important.message}
-                    </FormHelperText>
-                  )}
-                  <Stack spacing={2} direction='row'>
-                    <FormControl fullWidth>
+                    </PriorityItem>
+                    {errors?.important && (
+                      <FormHelperText sx={{ color: 'red' }}>
+                        {errors.important.message}
+                      </FormHelperText>
+                    )}
+                  </div>
+                  <div>
+                    <PriorityItem buttonText={'Urgent'} color={'secondary'}>
                       <OutlinedInput
                         id='component-outlined'
                         {...register('urgent', {
@@ -112,126 +115,86 @@ const ConfigureForm = ({ open, setOpen }) => {
                         })}
                         size='small'
                       />
-                    </FormControl>
-                    <Button
-                      variant='contained'
-                      color='secondary'
-                      sx={{ width: '130px' }}
-                    >
-                      Urgent
-                    </Button>
-                  </Stack>
-                  {errors?.urgent && (
-                    <FormHelperText sx={{ color: 'red' }}>
-                      {errors.urgent.message}
-                    </FormHelperText>
-                  )}
-                  <Stack spacing={2} direction='row'>
-                    <OutlinedInput
-                      id='component-outlined'
-                      {...register('emergency', {
-                        required: 'This field is required!',
-                      })}
-                      size='small'
-                      fullWidth
-                    />
+                    </PriorityItem>
+                    {errors?.urgent && (
+                      <FormHelperText sx={{ color: 'red' }}>
+                        {errors.urgent.message}
+                      </FormHelperText>
+                    )}
+                  </div>
 
-                    <Button
-                      variant='contained'
-                      color='info'
-                      sx={{ width: '130px' }}
-                    >
-                      Emergency
-                    </Button>
-                  </Stack>
-                  {errors?.emergency && (
-                    <FormHelperText sx={{ color: 'red' }}>
-                      {errors.emergency.message}
-                    </FormHelperText>
-                  )}
+                  <div>
+                    <PriorityItem buttonText={'Emergency'} color={'success'}>
+                      <OutlinedInput
+                        id='component-outlined'
+                        {...register('emergency', {
+                          required: 'This field is required!',
+                        })}
+                        size='small'
+                      />
+                    </PriorityItem>
+
+                    {errors?.emergency && (
+                      <FormHelperText sx={{ color: 'red' }}>
+                        {errors.emergency.message}
+                      </FormHelperText>
+                    )}
+                  </div>
                 </Stack>
                 <Typography sx={{ mt: 2 }}>Default Sounds:</Typography>
                 <Stack spacing={1} component='div'>
-                  <Stack spacing={2} direction='row' alignItems={'center'}>
-                    <Box sx={{ width: '100%' }}>
-                      <CustomSelect
-                        {...register('soundImportant')}
-                        values={[]}
-                        onChange={(e) => {
-                          setValue('soundImportant', e.target.value);
-                        }}
-                        value={watch('soundImportant')}
-                      />
-                    </Box>
-                    <div>
-                      <PlayArrowIcon />
-                    </div>
-                    <Button sx={{ width: '130px' }}>Important</Button>
-                  </Stack>
-                  <Stack spacing={2} direction='row' alignItems={'center'}>
-                    <Box sx={{ width: '100%' }}>
-                      <CustomSelect
-                        {...register('soundImportant')}
-                        values={[]}
-                        onChange={(e) => {
-                          setValue('soundImportant', e.target.value);
-                        }}
-                        value={watch('soundImportant')}
-                      />
-                    </Box>
-                    <div>
-                      <PlayArrowIcon />
-                    </div>
-                    <Button sx={{ width: '130px' }}>Urgent</Button>
-                  </Stack>
-                  <Stack spacing={2} direction='row' alignItems={'center'}>
-                    <Box sx={{ width: '100%' }}>
-                      <CustomSelect
-                        {...register('soundImportant')}
-                        values={[]}
-                        onChange={(e) => {
-                          setValue('soundImportant', e.target.value);
-                        }}
-                        value={watch('soundImportant')}
-                      />
-                    </Box>
-                    <div>
-                      <PlayArrowIcon />
-                    </div>
-                    <Button sx={{ width: '130px' }}>Emergency</Button>
-                  </Stack>
-                  <Stack spacing={2} direction='row' alignItems={'center'}>
-                    <Box sx={{ width: '100%' }}>
-                      <CustomSelect
-                        {...register('soundImportant')}
-                        values={[]}
-                        onChange={(e) => {
-                          setValue('soundImportant', e.target.value);
-                        }}
-                        value={watch('soundImportant')}
-                      />
-                    </Box>
-                    <div>
-                      <PlayArrowIcon />
-                    </div>
-                    <Button sx={{ width: '130px' }}>General</Button>
-                  </Stack>
-                  <Stack spacing={2} direction='row' alignItems={'center'}>
-                    <Box sx={{ width: '100%' }}>
-                      <CustomSelect
-                        {...register('soundImportant')}
-                        values={[]}
-                        onChange={(e) => {
-                          setValue('soundImportant', e.target.value);
-                        }}
-                        value={watch('soundImportant')}
-                      />
-                    </Box>
-                    <div>
-                      <PlayArrowIcon />
-                    </div>
-                    <Button sx={{ width: '130px' }}>Scheduled</Button>
-                  </Stack>
+                  <SoundItem buttonText={'Important'}>
+                    <CustomSelect
+                      {...register('soundImportant')}
+                      values={[]}
+                      onChange={(e) => {
+                        setValue('soundImportant', e.target.value);
+                      }}
+                      value={watch('soundImportant')}
+                    />
+                  </SoundItem>
+
+                  <SoundItem buttonText={'Urgent'}>
+                    <CustomSelect
+                      {...register('soundImportant')}
+                      values={[]}
+                      onChange={(e) => {
+                        setValue('soundImportant', e.target.value);
+                      }}
+                      value={watch('soundImportant')}
+                    />
+                  </SoundItem>
+
+                  <SoundItem buttonText={'Emergency'}>
+                    <CustomSelect
+                      {...register('soundImportant')}
+                      values={[]}
+                      onChange={(e) => {
+                        setValue('soundImportant', e.target.value);
+                      }}
+                      value={watch('soundImportant')}
+                    />
+                  </SoundItem>
+                  <SoundItem buttonText={'General'}>
+                    <CustomSelect
+                      {...register('soundImportant')}
+                      values={[]}
+                      onChange={(e) => {
+                        setValue('soundImportant', e.target.value);
+                      }}
+                      value={watch('soundImportant')}
+                    />
+                  </SoundItem>
+                  <SoundItem buttonText={'Scheduled'}>
+                    <CustomSelect
+                      {...register('soundImportant')}
+                      values={[]}
+                      onChange={(e) => {
+                        setValue('soundImportant', e.target.value);
+                      }}
+                      value={watch('soundImportant')}
+                    />
+                  </SoundItem>
 
                   <div>
                     <Stack direction='row' spacing={0} alignItems='center'>
@@ -239,7 +202,7 @@ const ConfigureForm = ({ open, setOpen }) => {
                       <OutlinedInput
                         placeholder='sec'
                         size='small'
-                        sx={{ width: '50px' }}
+                        sx={{ width: '80px' }}
                       />
                       <Typography variant='subtitle1' component={'p'}>
                         s.
@@ -262,8 +225,20 @@ const ConfigureForm = ({ open, setOpen }) => {
                           size='small'
                         />
                       </FormControl>
-                      <Button variant='contained' sx={{ width: '130px' }}>
-                        Important
+                      <Button
+                        variant='contained'
+                        sx={{
+                          textTransform: 'none',
+                          width: {
+                            xs: '100px',
+                          },
+                          fontSize: {
+                            xs: 12,
+                            sm: 16,
+                          },
+                        }}
+                      >
+                        +Add
                       </Button>
                     </Stack>
                     {errors?.message && (
@@ -303,8 +278,20 @@ const ConfigureForm = ({ open, setOpen }) => {
                           size='small'
                         />
                       </FormControl>
-                      <Button variant='contained' sx={{ width: '130px' }}>
-                        Important
+                      <Button
+                        variant='contained'
+                        sx={{
+                          textTransform: 'none',
+                          width: {
+                            xs: '100px',
+                          },
+                          fontSize: {
+                            xs: 12,
+                            sm: 16,
+                          },
+                        }}
+                      >
+                        +Add
                       </Button>
                     </Stack>
                     {errors?.message && (

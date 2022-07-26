@@ -19,7 +19,7 @@ const Navbar = ({ isNavShow }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const navLink = useMemo(() => {
+  const mainNavLinks = useMemo(() => {
     if (!isNavShow) return [];
     return [
       {
@@ -55,7 +55,7 @@ const Navbar = ({ isNavShow }) => {
       ];
     }
     return [
-      ...navLink,
+      ...mainNavLinks,
       {
         label: 'Return to Master',
         url: '/',
@@ -73,7 +73,7 @@ const Navbar = ({ isNavShow }) => {
         url: '/',
       },
     ];
-  }, [isNavShow]);
+  }, [isNavShow, mainNavLinks]);
 
   return (
     <nav>
@@ -89,7 +89,7 @@ const Navbar = ({ isNavShow }) => {
           display: { xs: 'none', md: 'flex' },
         }}
       >
-        {navLink.map((link) => {
+        {mainNavLinks.map((link) => {
           return (
             <Box
               component={Link}

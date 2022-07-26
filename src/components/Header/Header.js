@@ -57,7 +57,7 @@ const Header = ({ isNavShow = true }) => {
             >
               PB&J Tv Master Admin Manager
             </Typography>
-            {isNavShow && <Navbar />}
+            <Navbar isNavShow={isNavShow} />
           </div>
         </Stack>
       </Container>

@@ -9,57 +9,71 @@ import {
   Stack,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-const Navbar = () => {
-  const LINKS = [
-    {
-      label: 'Dashboard',
-      url: '/dashboard',
-    },
-    {
-      label: 'Message',
-      url: '/message',
-    },
-    {
-      label: 'Photo Slide',
-      url: '/photo-slide',
-    },
-    {
-      label: 'Social',
-      url: '/social',
-    },
-    {
-      label: 'Display Cams',
-      url: '/display-cameras',
-    },
-  ];
 
+const Navbar = ({ isNavShow }) => {
   const [isShow, setIsShow] = useState();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const LINKS_WITH_TOPBAR_LINKS = [
-    ...LINKS,
-    {
-      label: 'Return to Master',
-      url: '/',
-    },
-    {
-      label: 'Lobby Display',
-      url: '/',
-    },
-    {
-      label: 'Back Display',
-      url: '/',
-    },
-    {
-      label: 'Logout',
-      url: '/',
-    },
-  ];
+  const navLink = useMemo(() => {
+    if (!isNavShow) return [];
+    return [
+      {
+        label: 'Dashboard',
+        url: '/dashboard',
+      },
+      {
+        label: 'Message',
+        url: '/message',
+      },
+      {
+        label: 'Photo Slide',
+        url: '/photo-slide',
+      },
+      {
+        label: 'Social',
+        url: '/social',
+      },
+      {
+        label: 'Display Cams',
+        url: '/display-cameras',
+      },
+    ];
+  }, [isNavShow]);
+
+  const linksWithTopNavLinks = useMemo(() => {
+    if (!isNavShow) {
+      return [
+        {
+          label: 'Logout',
+          url: '/',
+        },
+      ];
+    }
+    return [
+      ...navLink,
+      {
+        label: 'Return to Master',
+        url: '/',
+      },
+      {
+        label: 'Lobby Display',
+        url: '/',
+      },
+      {
+        label: 'Back Display',
+        url: '/',
+      },
+      {
+        label: 'Logout',
+        url: '/',
+      },
+    ];
+  }, [isNavShow]);
 
   return (
     <nav>
@@ -75,7 +89,7 @@ const Navbar = () => {
           display: { xs: 'none', md: 'flex' },
         }}
       >
-        {LINKS.map((link) => {
+        {navLink.map((link) => {
           return (
             <Box
               component={Link}
@@ -112,7 +126,7 @@ const Navbar = () => {
             onKeyDown={() => setIsShow(false)}
           >
             <List>
-              {LINKS_WITH_TOPBAR_LINKS.map((item) => (
+              {linksWithTopNavLinks.map((item) => (
                 <>
                   <ListItem
                     key={Math.random()}

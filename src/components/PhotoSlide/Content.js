@@ -1,6 +1,7 @@
 import { Button, Grid, Stack } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeSlidePhotoAction,
@@ -10,6 +11,22 @@ import {
 const Content = () => {
   const photos = useSelector((state) => state.slidePhotos);
   const dispatch = useDispatch();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage] = useState(6);
+
+  const totalPage = useMemo(() => {
+    if (photos.length === 0) return 1;
+    return Math.ceil(photos.length / itemPerPage);
+  }, [photos, itemPerPage]);
+
+  const filteredPhotos = useMemo(() => {
+    if (photos.length === 0) return [];
+    const start = itemPerPage * currentPage - itemPerPage;
+    const end = itemPerPage * currentPage;
+
+    return photos.slice(start, end);
+  }, [photos, itemPerPage, currentPage]);
 
   const deleteHandler = (id) => {
     dispatch(removeSlidePhotoAction(id));
@@ -26,7 +43,7 @@ const Content = () => {
           columnGap={{ xs: '10px', sm: '0' }}
           flexWrap={'wrap'}
         >
-          {photos.map((photo) => (
+          {filteredPhotos.map((photo) => (
             <Grid xs={12} sm={6} md={4}>
               <Box
                 sx={{
@@ -90,6 +107,15 @@ const Content = () => {
             </Grid>
           ))}
         </Grid>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Pagination
+            count={totalPage}
+            shape='rounded'
+            size='medium'
+            page={currentPage}
+            onChange={(_, value) => setCurrentPage(value)}
+          />
+        </Box>
       </div>
     </div>
   );

@@ -17,15 +17,7 @@ const DashboardContent = () => {
           <Grid xs={12} md={4}>
             <PriorityAlert />
           </Grid>
-          <Grid
-            xs={12}
-            md={8}
-            sx={{
-              boxSizing: 'border-box',
-              paddingLeft: { xs: 0, md: '10px' },
-              mt: { xs: 3, md: 0 },
-            }}
-          >
+          <Grid xs={12} md={8} sx={styles.content}>
             <Stack spacing={4}>
               <TodaysMessages />
               <UpcomingScheduledMessages />
@@ -38,3 +30,11 @@ const DashboardContent = () => {
 };
 
 export default DashboardContent;
+
+const styles = {
+  content: {
+    boxSizing: 'border-box',
+    paddingLeft: { xs: 0, md: '10px' },
+    mt: { xs: 3, md: 0 },
+  },
+};

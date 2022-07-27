@@ -10,32 +10,12 @@ import TableRow from '@mui/material/TableRow';
 
 const TodaysMessages = () => {
   return (
-    <Box
-      sx={{
-        bgcolor: '#382858',
-        boxSizing: 'border-box',
-        padding: '12px',
-        borderRadius: '10px',
-      }}
-    >
+    <Box sx={styles.main}>
       <Typography variant='h6' sx={{ mb: 1 }} color='#fff'>
         Today's Messages
       </Typography>
-      <Box
-        sx={{
-          bgcolor: 'white',
-          boxSizing: 'border-box',
-          padding: '20px',
-          //   minHeight: 400,
-          borderRadius: '10px',
-        }}
-      >
-        <Box
-          sx={{
-            borderTop: '5px solid #974cfa',
-            borderRadius: '10px',
-          }}
-        >
+      <Box sx={styles.contentWrapper}>
+        <Box sx={styles.content}>
           <Typography variant='subtitle1' align='center' sx={{ my: 1 }}>
             Title
           </Typography>
@@ -78,3 +58,20 @@ const TodaysMessages = () => {
 };
 
 export default TodaysMessages;
+
+const styles = {
+  main: {
+    bgcolor: '#382858',
+    boxSizing: 'border-box',
+    padding: '12px',
+    borderRadius: '10px',
+  },
+  contentWrapper: {
+    bgcolor: 'white',
+    boxSizing: 'border-box',
+    padding: '20px',
+    //   minHeight: 400,
+    borderRadius: '10px',
+  },
+  content: { borderTop: '5px solid #974cfa', borderRadius: '10px' },
+};

@@ -25,21 +25,7 @@ const SoundItem = ({ children, buttonText, color = 'primary' }) => {
             <PlayArrowIcon />
           </div>
         </Stack>
-        <Button
-          color={color}
-          sx={{
-            textTransform: 'none',
-            width: {
-              xs: 'auto',
-              sm: '130px',
-            },
-            fontSize: {
-              xs: 12,
-              sm: 16,
-            },
-            order: { xs: 1, sm: 3 },
-          }}
-        >
+        <Button color={color} sx={styles.button}>
           {buttonText}
         </Button>
       </Stack>
@@ -48,3 +34,18 @@ const SoundItem = ({ children, buttonText, color = 'primary' }) => {
 };
 
 export default SoundItem;
+
+const styles = {
+  button: {
+    textTransform: 'none',
+    width: {
+      xs: 'auto',
+      sm: '130px',
+    },
+    fontSize: {
+      xs: 12,
+      sm: 16,
+    },
+    order: { xs: 1, sm: 3 },
+  },
+};

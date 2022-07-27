@@ -15,6 +15,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addMessageAction } from '../../../store/messages/messageAction';
+import styles from './configureFormstyles';
 import CustomSelect from './CustomSelect';
 import PriorityItem from './PriorityItem';
 import SoundItem from './SoundItem';
@@ -42,26 +43,6 @@ const ConfigureForm = ({ open, setOpen }) => {
     );
   };
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: {
-      xs: '70%',
-      md: '55%',
-      xl: '50%',
-    },
-    bgcolor: 'background.paper',
-    p: 4,
-    overflowX: 'auto',
-    height: {
-      xs: '60vh',
-      md: '80vh',
-      xl: 'auto',
-    },
-  };
-
   return (
     <div>
       <Modal
@@ -70,15 +51,9 @@ const ConfigureForm = ({ open, setOpen }) => {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style} component={Paper}>
+        <Box sx={styles.main} component={Paper}>
           <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'end',
-              ':hover': {
-                cursor: 'pointer',
-              },
-            }}
+            sx={styles.content}
             onClick={() => setOpen(false)}
             component='div'
           >
@@ -225,19 +200,7 @@ const ConfigureForm = ({ open, setOpen }) => {
                           size='small'
                         />
                       </FormControl>
-                      <Button
-                        variant='contained'
-                        sx={{
-                          textTransform: 'none',
-                          width: {
-                            xs: '100px',
-                          },
-                          fontSize: {
-                            xs: 12,
-                            sm: 16,
-                          },
-                        }}
-                      >
+                      <Button variant='contained' sx={styles.addButton}>
                         +Add
                       </Button>
                     </Stack>
@@ -278,19 +241,7 @@ const ConfigureForm = ({ open, setOpen }) => {
                           size='small'
                         />
                       </FormControl>
-                      <Button
-                        variant='contained'
-                        sx={{
-                          textTransform: 'none',
-                          width: {
-                            xs: '100px',
-                          },
-                          fontSize: {
-                            xs: 12,
-                            sm: 16,
-                          },
-                        }}
-                      >
+                      <Button variant='contained' sx={styles.addButton}>
                         +Add
                       </Button>
                     </Stack>
@@ -322,13 +273,7 @@ const ConfigureForm = ({ open, setOpen }) => {
             </Grid>
 
             {/* submit button */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                my: '10px',
-              }}
-            >
+            <Box sx={styles.submitButton}>
               <Button variant='contained' type='submit'>
                 Save Defaults
               </Button>

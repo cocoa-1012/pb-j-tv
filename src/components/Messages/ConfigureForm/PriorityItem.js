@@ -6,21 +6,7 @@ const PriorityItem = ({ children, buttonText, color = 'primary' }) => {
     <div>
       <Stack spacing={2} direction='row'>
         {children}
-        <Button
-          variant='contained'
-          color={color}
-          sx={{
-            textTransform: 'none',
-            width: {
-              xs: '100px',
-              sm: '130px',
-            },
-            fontSize: {
-              xs: 12,
-              sm: 16,
-            },
-          }}
-        >
+        <Button variant='contained' color={color} sx={styles.button}>
           {buttonText}
         </Button>
       </Stack>
@@ -29,3 +15,17 @@ const PriorityItem = ({ children, buttonText, color = 'primary' }) => {
 };
 
 export default PriorityItem;
+
+const styles = {
+  button: {
+    textTransform: 'none',
+    width: {
+      xs: '100px',
+      sm: '130px',
+    },
+    fontSize: {
+      xs: 12,
+      sm: 16,
+    },
+  },
+};

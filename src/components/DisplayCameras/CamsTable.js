@@ -8,7 +8,7 @@ import { fetchAllCamerasAction } from '../../store/cameras/camerasAction';
 
 const CamsTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
-  const data = useSelector((state) => state.cameras);
+  const data = useSelector((state) => state.cameras.data);
 
   const dispatch = useDispatch();
 

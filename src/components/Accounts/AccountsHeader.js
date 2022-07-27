@@ -13,11 +13,7 @@ import FilterSelect from './FilterSelect';
 const AccountsHeader = ({ search, setSearch }) => {
   return (
     <div>
-      <Grid
-        container
-        sx={{ my: 3, pb: 1, borderBottom: '1px solid green' }}
-        alignItems='end'
-      >
+      <Grid container sx={styles.main} alignItems='end'>
         <Grid xs={12} md={3}>
           <Typography variant='h5' gutterBottom component='div'>
             Accounts
@@ -63,3 +59,7 @@ const AccountsHeader = ({ search, setSearch }) => {
 };
 
 export default AccountsHeader;
+
+const styles = {
+  main: { my: 3, pb: 1, borderBottom: '1px solid green' },
+};

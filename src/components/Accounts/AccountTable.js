@@ -1,11 +1,11 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AccountTable = ({ data }) => {
-  const [pageSize, setPageSize] = React.useState(10);
+  const [itemPerPage, setItemPerPage] = useState(10);
 
   const columns = [
     {
@@ -68,8 +68,8 @@ const AccountTable = ({ data }) => {
             columns={columns}
             disableSelectionOnClick
             disableColumnMenu
-            pageSize={pageSize}
-            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            pageSize={itemPerPage}
+            onPageSizeChange={(newPageSize) => setItemPerPage(newPageSize)}
             rowsPerPageOptions={[10, 20, 30, 50]}
             pagination
             style={{ border: 'none' }}

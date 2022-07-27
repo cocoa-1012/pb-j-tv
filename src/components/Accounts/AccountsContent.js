@@ -1,20 +1,8 @@
-// import { faker } from '@faker-js/faker';
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import AccountsHeader from './AccountsHeader';
 import AccountTable from './AccountTable';
-// const rows = Array.from(new Array(100).fill(null)).map((_, index) => {
-//   return {
-//     id: index + 1,
-//     centerName: faker.company.bs(),
-//     username: faker.name.findName().split(' ').join('').toLocaleLowerCase(),
-//     password: faker.hacker.adjective(),
-//     contact: faker.phone.number(),
-//     email: faker.internet.email('a', 'b'),
-//     location: faker.address.country(),
-//     viewPage: index + 1,
-//   };
-// });
+
 const AccountsContent = () => {
   const data = useSelector((state) => state.accounts);
 
@@ -28,8 +16,6 @@ const AccountsContent = () => {
       'email',
       'location',
     ];
-
-    console.time('search');
 
     const filterIds = columnsProps.reduce((acc, col) => {
       data.forEach((curr) => {
@@ -50,7 +36,6 @@ const AccountsContent = () => {
       }
       return acc;
     }, []);
-    console.timeEnd('search');
 
     return filterItems;
   }, [search, data]);

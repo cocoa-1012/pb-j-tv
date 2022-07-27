@@ -41,25 +41,13 @@ const LoginForm = () => {
       container
       justifyContent={'center'}
       alignItems={'center'}
-      sx={{ height: '100vh', boxSizing: 'border-box' }}
+      sx={styles.main}
     >
       <Grid xs={12} sm={12} md={9}>
-        <Typography
-          variant='h6'
-          component={'h3'}
-          sx={{ pb: 1 /*fontFamily: 'QwitcherBychen'*/ }}
-        >
+        <Typography variant='h6' component={'h3'} sx={styles.title}>
           Preschool Reports Communication Platform
         </Typography>
-        <Box
-          component='div'
-          sx={{
-            border: '1px solid #919095',
-            padding: '30px',
-            boxSizing: 'border-box',
-            borderRadius: '10px',
-          }}
-        >
+        <Box component='div' sx={styles.content}>
           <Grid container>
             <Grid xs={12} sm={8} md={8}>
               <form onSubmit={handleSubmit(submitHandler)}>
@@ -67,7 +55,7 @@ const LoginForm = () => {
                   <Typography
                     variant='h6'
                     component={'h3'}
-                    sx={{ mb: 2, color: '#919095' }}
+                    sx={styles.formTitle}
                   >
                     Login Here!
                   </Typography>
@@ -165,19 +153,7 @@ const LoginForm = () => {
                         </Button>
                       </div>
                       <div>
-                        <Box
-                          component={Link}
-                          to='/dd'
-                          sx={{
-                            color: 'red',
-                            textDecoration: 'none',
-                            textTransform: 'capitalize',
-                            transition: 'all 0.5s',
-                            ':hover': {
-                              color: 'blue',
-                            },
-                          }}
-                        >
+                        <Box component={Link} to='/dd' sx={styles.forgotButton}>
                           Forgot your password?
                         </Box>
                       </div>
@@ -203,3 +179,34 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+const styles = {
+  main: { height: '100vh', boxSizing: 'border-box' },
+  title: {
+    pb: 1 /*fontFamily: 'QwitcherBychen'*/,
+    mx: {
+      xs: '10px',
+      md: '0px',
+    },
+  },
+  content: {
+    border: '1px solid #919095',
+    padding: '30px',
+    boxSizing: 'border-box',
+    borderRadius: '10px',
+    mx: {
+      xs: '10px',
+      md: '0px',
+    },
+  },
+  formTitle: { mb: 2, color: '#919095' },
+  forgotButton: {
+    color: 'red',
+    textDecoration: 'none',
+    textTransform: 'capitalize',
+    transition: 'all 0.5s',
+    ':hover': {
+      color: 'blue',
+    },
+  },
+};

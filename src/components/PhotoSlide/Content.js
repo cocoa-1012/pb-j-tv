@@ -45,36 +45,13 @@ const Content = () => {
         >
           {filteredPhotos.map((photo) => (
             <Grid xs={12} sm={6} md={4}>
-              <Box
-                sx={{
-                  px: { xs: 0, sm: '10px' },
-                  py: { xs: '5px' },
-                  boxSizing: 'border-box',
-                }}
-              >
+              <Box sx={styles.item}>
                 <div>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: {
-                        xs: '200px',
-                        sm: '400px',
-                        xl: '500px',
-                      },
-                      my: {
-                        xs: '10px',
-                        md: '0',
-                      },
-                    }}
-                  >
+                  <Box sx={styles.imageWrapper}>
                     <Box
                       component={'img'}
                       src={photo.image}
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                      }}
+                      sx={styles.image}
                     />
                   </Box>
                 </div>
@@ -122,3 +99,28 @@ const Content = () => {
 };
 
 export default Content;
+
+const styles = {
+  item: {
+    px: { xs: 0, sm: '10px' },
+    py: { xs: '5px' },
+    boxSizing: 'border-box',
+  },
+  imageWrapper: {
+    width: '100%',
+    height: {
+      xs: '200px',
+      sm: '400px',
+      xl: '500px',
+    },
+    my: {
+      xs: '10px',
+      md: '0',
+    },
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+  },
+};

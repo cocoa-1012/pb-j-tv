@@ -1,7 +1,8 @@
 import axios from 'axios';
+import configData from '../config.json';
 
 const token = localStorage.getItem('token');
-const baseURL = 'https://dummy.restapiexample.com';
+const baseURL = configData.SERVER_URL;
 const axiosInstance = axios.create({
   baseURL,
   headers: {

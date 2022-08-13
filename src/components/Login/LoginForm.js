@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Checkbox,
   FormControl,
@@ -8,11 +9,10 @@ import {
   Grid,
   OutlinedInput,
   Stack,
-  Alert
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -64,10 +64,8 @@ const LoginForm = () => {
                     Login Here!
                   </Typography>
                 </div>
-                {errorsState != ''?
-                <Alert severity="error">{errorsState}</Alert>
-                :<div></div>}
-                <br/>
+                {errorsState && <Alert severity='error'>{errorsState}</Alert>}
+                <br />
                 {/* username input */}
                 <div>
                   <Grid container alignItems={'center'}>
@@ -113,6 +111,7 @@ const LoginForm = () => {
                       <FormControl fullWidth>
                         <OutlinedInput
                           id='component-outlined'
+                          type='password'
                           size='small'
                           {...register('password', {
                             required: 'This field is required!',

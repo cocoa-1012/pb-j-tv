@@ -3,8 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   data: [],
   layout: {
-    rows: 1,
-    cols: 1,
+    displayGridSelected: 1
   },
   slide: false,
 };

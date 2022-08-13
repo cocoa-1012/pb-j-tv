@@ -9,15 +9,17 @@ import {
   updateSlide,
 } from './camerasSlice';
 
-import CAMERAS from './data';
-
+import configData from '../../config';
 export const fetchAllCamerasAction = () => async (dispatch) => {
   try {
     const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos`
+      configData.SERVER_URL+'cameras',{headers:{
+        'userid': localStorage.getItem('accountSelected'),
+        'Authorization': 'Bearer'+localStorage.getItem('token')
+      }}
     );
 
-    dispatch(fetchData(CAMERAS));
+    dispatch(fetchData(res.data));
   } catch (error) {
     console.log(error.message);
   }
@@ -60,13 +62,13 @@ export const removeCamerasAction = (id) => async (dispatch) => {
   }
 };
 export const changeCamerasLayoutAction =
-  ({ rows, cols }) =>
+  ({ displayLoayoutId }) =>
   async (dispatch) => {
     try {
       const res = await axiosInstance.get(
         `https://jsonplaceholder.typicode.com/todos/1`
       );
-      dispatch(changeLayout({ rows, cols }));
+      dispatch(changeLayout({ displayLoayoutId }));
     } catch (error) {
       console.log(error.message);
     }

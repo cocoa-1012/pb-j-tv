@@ -24,7 +24,6 @@ const Content = () => {
     if (photos.length === 0) return [];
     const start = itemPerPage * currentPage - itemPerPage;
     const end = itemPerPage * currentPage;
-
     return photos.slice(start, end);
   }, [photos, itemPerPage, currentPage]);
 
@@ -50,7 +49,7 @@ const Content = () => {
                   <Box sx={styles.imageWrapper}>
                     <Box
                       component={'img'}
-                      src={photo.image}
+                      src={"http://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/"+photo.file_name}
                       sx={styles.image}
                     />
                   </Box>

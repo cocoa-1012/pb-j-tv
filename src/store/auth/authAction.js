@@ -1,4 +1,6 @@
-import axiosInstance from '../../utilities/axiosInstance';
+import axios from 'axios';
+import configData from "../../config.json";
+
 
 import { login, logout } from './authSlice';
 
@@ -10,17 +12,34 @@ import { login, logout } from './authSlice';
  */
 export const authLoginAction = (data, callback) => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos/1`,
-      data
-    );
 
-    dispatch(login({ user: { id: 1 } }));
+    var dataSend = JSON.stringify({
+      "strategy": "jwt",
+      "username": data.username,
+      "password": data.password
+    });
+  
+    var config = {
+      method: 'post',
+      url: configData.SERVER_URL+'authentication',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : dataSend
+    };
+    
+    
+    const res = await axios(config);
+    localStorage.setItem("token",res.data.sign);
+    // console.log(res);
+    dispatch(login({ user: { id: res.data.user.id } }));
     callback(true);
   } catch (error) {
+    console.log(error);
+
     callback(
       false,
-      error?.response?.status === 400 ? error?.response?.data : {}
+      {message:'Invalid username or password'}
     );
 
     console.log(error.message);

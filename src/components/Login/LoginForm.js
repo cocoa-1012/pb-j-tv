@@ -8,10 +8,11 @@ import {
   Grid,
   OutlinedInput,
   Stack,
+  Alert
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React from 'react';
+import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,12 +26,15 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [errorsState, setErrorsState] = useState('');
+
   const submitHandler = (values) => {
     dispatch(
       authLoginAction(values, (isOk, result) => {
         if (isOk) {
           navigate('/accounts');
         } else {
+          setErrorsState(result?.message);
           console.log('errors', result);
         }
       })
@@ -60,6 +64,10 @@ const LoginForm = () => {
                     Login Here!
                   </Typography>
                 </div>
+                {errorsState != ''?
+                <Alert severity="error">{errorsState}</Alert>
+                :<div></div>}
+                <br/>
                 {/* username input */}
                 <div>
                   <Grid container alignItems={'center'}>
@@ -82,12 +90,12 @@ const LoginForm = () => {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  {errors?.username && (
+                  {errors?.message && (
                     <Grid container sx={{}}>
                       <Grid sm={3}></Grid>
                       <Grid sm={9}>
                         <FormHelperText sx={{ color: 'red' }}>
-                          {errors.username.message}
+                          {errors.message}
                         </FormHelperText>
                       </Grid>
                     </Grid>

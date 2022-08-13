@@ -33,7 +33,7 @@ const TopNavBar = ({ isNavShow }) => {
         sx={{ flexWrap: 'wrap', gap: { xs: '10px', sm: '0' } }}
       >
         {isNavShow && (
-          <Box component={Link} to='/' sx={link}>
+          <Box component={Link} to='/accounts' sx={link}>
             Return to Master
           </Box>
         )}

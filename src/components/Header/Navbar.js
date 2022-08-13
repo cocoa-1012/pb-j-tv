@@ -13,34 +13,35 @@ import React, { useMemo, useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import  { useParams } from 'react-router-dom';
 const Navbar = ({ isNavShow }) => {
   const [isShow, setIsShow] = useState();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { id } = useParams();
 
   const mainNavLinks = useMemo(() => {
     if (!isNavShow) return [];
     return [
       {
         label: 'Dashboard',
-        url: '/dashboard',
+        url: `/dashboard`,
       },
       {
         label: 'Message',
-        url: '/message',
+        url: `/message`,
       },
       {
         label: 'Photo Slide',
-        url: '/photo-slide',
+        url: `/photo-slide`,
       },
       {
         label: 'Social',
-        url: '/social',
+        url: `/social`,
       },
       {
         label: 'Display Cams',
-        url: '/display-cameras',
+        url: `/display-cameras`,
       },
     ];
   }, [isNavShow]);

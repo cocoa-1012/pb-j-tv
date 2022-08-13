@@ -10,13 +10,12 @@ const AccountsContent = () => {
   const filterData = useMemo(() => {
     if (!search) return data;
     const columnsProps = [
-      'centerName',
       'username',
-      'contact',
+      'contactno',
       'email',
       'location',
     ];
-
+    
     const filterIds = columnsProps.reduce((acc, col) => {
       data.forEach((curr) => {
         if (

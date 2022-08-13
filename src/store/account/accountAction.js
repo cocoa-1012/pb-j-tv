@@ -2,9 +2,12 @@ import { faker } from '@faker-js/faker';
 import shortid from 'shortid';
 import axiosInstance from '../../utilities/axiosInstance';
 import { add, fetchData, remove } from './accountSlice';
+import configData from "../../config.json";
 
-import ACCOUNTS_DATA from './data';
-
+// import ACCOUNTS_DATA from './data';
+export const storeInfoLocalStorage = (id) => async (dispatch) => {
+  localStorage.setItem('accountSelected', id);
+}
 /**
  *
  * @param {*} data  {username: string , password: string , remember: boolean}
@@ -14,10 +17,10 @@ import ACCOUNTS_DATA from './data';
 export const fetchAllAccountsAction = () => async (dispatch) => {
   try {
     const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos`
+      configData.SERVER_URL+'users'
     );
 
-    dispatch(fetchData(ACCOUNTS_DATA));
+    dispatch(fetchData(res.data));
   } catch (error) {
     console.log(error.message);
   }

@@ -1,16 +1,24 @@
 // import { faker } from '@faker-js/faker';
 // import shortid from 'shortid';
 import axiosInstance from '../../utilities/axiosInstance';
-import { SLIDE_PHOTOS } from './data';
 import { add, fetchData, remove, updateStatus } from './slidePhotoSlice';
-
+import configData from '../../config';
 export const fetchAllSlidePhotosAction = () => async (dispatch) => {
   try {
+
     const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos`
+      configData.SERVER_URL+'slides',{headers:{
+        'userid': localStorage.getItem('accountSelected'),
+        'Authorization': 'Bearer'+localStorage.getItem('token')
+      }}
     );
 
-    dispatch(fetchData(SLIDE_PHOTOS));
+    dispatch(fetchData(res.data));
+    // const res = await axiosInstance.get(
+    //   `https://jsonplaceholder.typicode.com/todos`
+    // );
+
+    // dispatch(fetchData(SLIDE_PHOTOS));
   } catch (error) {
     console.log(error.message);
   }

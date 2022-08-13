@@ -17,8 +17,8 @@ const CamsTable = () => {
   }, [dispatch]);
 
   const columns = [
-    { headerName: 'WebCams:', field: 'name', width: 250 },
-    { headerName: 'IP Addresses', field: 'ip', width: 200 },
+    { headerName: 'WebCams:', field: 'cameraName', width: 250 },
+    { headerName: 'IP Addresses', field: 'ipAddress', width: 200 },
     {
       headerName: 'Enable',
       field: 'enable',

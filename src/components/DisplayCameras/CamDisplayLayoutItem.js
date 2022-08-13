@@ -3,19 +3,19 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCamerasLayoutAction } from '../../store/cameras/camerasAction';
 
-const CamDisplayLayoutItem = ({ rowCount = 1, column = 1 }) => {
+const CamDisplayLayoutItem = ({ rowCount = 1, column = 1, orientation = "",displayId=1 }) => {
   const height = 200;
   const width = 230;
-  const { rows, cols } = useSelector((state) => state.cameras.layout);
+  const { displayGridSelected } = useSelector((state) => state.cameras.layout);
   const dispatch = useDispatch();
 
   const isEnable = useMemo(() => {
-    return rows === rowCount && cols === column;
-  }, [rowCount, column, rows, cols]);
+    return displayGridSelected == displayId;
+  }, [displayGridSelected, displayId]);
 
   const clickHandler = () => {
     if (isEnable) return;
-    dispatch(changeCamerasLayoutAction({ rows: rowCount, cols: column }));
+    dispatch(changeCamerasLayoutAction({ displayId: displayId }));
   };
 
   return (
@@ -29,7 +29,7 @@ const CamDisplayLayoutItem = ({ rowCount = 1, column = 1 }) => {
         }}
       >
         {rowCount === 1 ? '1' : `${rowCount}×${column} ${rowCount * column}`}{' '}
-        Cam Display Horizontal
+        Cam Display {orientation}
       </Typography>
       <Stack
         spacing={2}

@@ -17,10 +17,12 @@ const RightSideBar = () => {
           Chose how you want cameras to show on display
         </Typography>
         <div>
-          <CamDisplayLayoutItem rowCount={1} column={1} />
-          <CamDisplayLayoutItem rowCount={3} column={3} />
-          <CamDisplayLayoutItem rowCount={3} column={4} />
-          <CamDisplayLayoutItem rowCount={4} column={4} />
+          <CamDisplayLayoutItem rowCount={1} column={1} orientation="horizontal" displayId="1"/>
+          <CamDisplayLayoutItem rowCount={3} column={3} orientation=""  displayId="2"/>
+          <CamDisplayLayoutItem rowCount={3} column={4} orientation=""  displayId="3"/>
+          <CamDisplayLayoutItem rowCount={4} column={4} orientation=""  displayId="4"/>
+          <CamDisplayLayoutItem rowCount={1} column={1} orientation="vertical"  displayId="5"/>
+          <CamDisplayLayoutItem rowCount={4} column={2} orientation=""  displayId="6"/>
         </div>
       </Box>
     </>

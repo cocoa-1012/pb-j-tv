@@ -12,8 +12,7 @@ import { Box } from '@mui/system';
 import React, { useMemo, useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import  { useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 const Navbar = ({ isNavShow }) => {
   const [isShow, setIsShow] = useState();
   const navigate = useNavigate();
@@ -34,10 +33,6 @@ const Navbar = ({ isNavShow }) => {
       {
         label: 'Photo Slide',
         url: `/photo-slide`,
-      },
-      {
-        label: 'Social',
-        url: `/social`,
       },
       {
         label: 'Display Cams',

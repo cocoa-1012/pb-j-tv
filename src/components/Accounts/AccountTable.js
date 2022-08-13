@@ -4,8 +4,11 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { storeInfoLocalStorage } from '../../store/account/accountAction';
+import UserInfoModal from './UserInfoModal/UserInfoModal';
 
-const AccountTable = ({ data }) => {
+const AccountTable = ({ data, isOpen, setIsOpen }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const [itemPerPage, setItemPerPage] = useState(10);
   const columns = [
     {
@@ -18,7 +21,20 @@ const AccountTable = ({ data }) => {
 
         return (
           <>
-            <Link to={`/dashboard`} onClick={storeInfoLocalStorage(row.id)}>{formattedValue}</Link>
+            <Box
+              sx={{
+                textDecoration: 'underline',
+                color: 'blue',
+                cursor: 'pointer',
+              }}
+              to={`/dashboard`}
+              onClick={() => {
+                setIsOpen(true);
+                setSelectedItem(row.id);
+              }}
+            >
+              {formattedValue}
+            </Box>
           </>
         );
       },
@@ -36,7 +52,9 @@ const AccountTable = ({ data }) => {
 
         return (
           <>
-            <Link to={`/item`}>View Page</Link>
+            <Link to={`/dashboard`} onClick={storeInfoLocalStorage(row.id)}>
+              View Page
+            </Link>
           </>
         );
       },
@@ -56,26 +74,38 @@ const AccountTable = ({ data }) => {
       },
     },
   ];
-  
+
   return (
-    <Box sx={{ mt: 4 }}>
-      <Box sx={{ display: 'flex', width: '100%' }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <DataGrid
-            rows={data}
-            columns={columns}
-            disableSelectionOnClick
-            disableColumnMenu
-            pageSize={itemPerPage}
-            onPageSizeChange={(newPageSize) => setItemPerPage(newPageSize)}
-            rowsPerPageOptions={[10, 20, 30, 50]}
-            pagination
-            style={{ border: 'none' }}
-            autoHeight
-          />
+    <>
+      <Box sx={{ mt: 4 }}>
+        <Box sx={{ display: 'flex', width: '100%' }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <DataGrid
+              rows={data}
+              columns={columns}
+              disableSelectionOnClick
+              disableColumnMenu
+              pageSize={itemPerPage}
+              onPageSizeChange={(newPageSize) => setItemPerPage(newPageSize)}
+              rowsPerPageOptions={[10, 20, 30, 50]}
+              pagination
+              style={{ border: 'none' }}
+              autoHeight
+            />
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <UserInfoModal
+        open={isOpen}
+        setOpen={(result, reset) => {
+          reset();
+          setSelectedItem(null);
+          setIsOpen(result);
+        }}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
+      />
+    </>
   );
 };
 

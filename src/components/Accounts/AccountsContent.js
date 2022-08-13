@@ -5,17 +5,13 @@ import AccountTable from './AccountTable';
 
 const AccountsContent = () => {
   const data = useSelector((state) => state.accounts);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [search, setSearch] = useState('');
   const filterData = useMemo(() => {
     if (!search) return data;
-    const columnsProps = [
-      'username',
-      'contactno',
-      'email',
-      'location',
-    ];
-    
+    const columnsProps = ['username', 'contactno', 'email', 'location'];
+
     const filterIds = columnsProps.reduce((acc, col) => {
       data.forEach((curr) => {
         if (
@@ -41,8 +37,12 @@ const AccountsContent = () => {
 
   return (
     <div>
-      <AccountsHeader search={search} setSearch={setSearch} />
-      <AccountTable data={filterData} />
+      <AccountsHeader
+        search={search}
+        setSearch={setSearch}
+        setIsOpen={setIsOpen}
+      />
+      <AccountTable data={filterData} isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };

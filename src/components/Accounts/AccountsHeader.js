@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import FilterSelect from './FilterSelect';
 
-const AccountsHeader = ({ search, setSearch }) => {
+const AccountsHeader = ({ search, setSearch, setIsOpen }) => {
   return (
     <div>
       <Grid container sx={styles.main} alignItems='end'>
@@ -43,7 +43,11 @@ const AccountsHeader = ({ search, setSearch }) => {
               <FilterSelect />
 
               <div>
-                <Button variant='contained' color='secondary'>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={() => setIsOpen(true)}
+                >
                   <Stack spacing={1} direction='row'>
                     <AddIcon />
                     <span>Add Account</span>

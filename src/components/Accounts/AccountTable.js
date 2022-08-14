@@ -2,12 +2,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { storeInfoLocalStorage } from '../../store/account/accountAction';
+import {
+  removeAccountAction,
+  storeInfoLocalStorage,
+} from '../../store/account/accountAction';
 import UserInfoModal from './UserInfoModal/UserInfoModal';
 
 const AccountTable = ({ data, isOpen, setIsOpen }) => {
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const dispatch = useDispatch();
 
   const [itemPerPage, setItemPerPage] = useState(10);
   const columns = [
@@ -63,10 +69,14 @@ const AccountTable = ({ data, isOpen, setIsOpen }) => {
     {
       headerName: 'Delete',
       width: 100,
-      renderCell: () => {
+      renderCell: (props) => {
+        const { id } = props.row;
         return (
           <div className='flex gap-x-1'>
-            <Button color='error'>
+            <Button
+              color='error'
+              onClick={() => dispatch(removeAccountAction(id))}
+            >
               <CloseIcon />
             </Button>
           </div>

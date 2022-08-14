@@ -50,10 +50,16 @@ export const updateAccountAction = (data, callback) => async (dispatch) => {
   }
 };
 
-export const removeAccountAction = (id) => async (dispatch) => {
+export const removeAccountAction = (id, callback) => async (dispatch) => {
   try {
+    await axiosInstance.delete(`users/${id}`);
     dispatch(remove({ id }));
+    callback(true);
   } catch (error) {
+    callback(
+      false,
+      error?.response?.status === 400 ? error?.response?.data : {}
+    );
     console.log(error.message);
   }
 };

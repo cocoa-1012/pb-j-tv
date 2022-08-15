@@ -40,9 +40,7 @@ export const addMessageAction = (data, callback) => async (dispatch) => {
 
 export const removeMessageAction = (id) => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos/1`
-    );
+    await axiosInstance.delete(`/messages/${id}`);
     dispatch(remove({ id }));
   } catch (error) {
     console.log(error.message);

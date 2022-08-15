@@ -32,7 +32,7 @@ const SchedularTable = () => {
       headerName: 'Action',
       width: 100,
       sortable: false,
-      renderCell: () => {
+      renderCell: ({ row }) => {
         const styles = {
           color: 'red',
           cursor: 'pointer',
@@ -44,7 +44,7 @@ const SchedularTable = () => {
             <Box
               component={CloseIcon}
               sx={styles}
-              onClick={() => dispatch(removeMessageAction())}
+              onClick={() => dispatch(removeMessageAction(row.id))}
             />
           </Stack>
         );

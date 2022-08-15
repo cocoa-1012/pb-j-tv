@@ -10,7 +10,15 @@ const SchedularTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
   const messages = useSelector((state) => {
     // return whatever data you want from redux state
-    return state.messages.length > 0 ? state.messages : [];
+
+    if (state.messages.length <= 0) return [];
+
+    return state.messages.reduce((acc, cur, index) => {
+      const condition = moment().isBefore(cur.dateTime, 'day');
+      if (condition) acc.push(cur);
+
+      return acc;
+    }, []);
   });
 
   const dispatch = useDispatch();
@@ -23,7 +31,7 @@ const SchedularTable = () => {
       field: 'dateTime',
       width: 200,
       renderCell: ({ value }) => {
-        return <p>{moment(value).format('h:mm a, MMM Do YYYY')}</p>;
+        return <p>{moment(value).format('MMM D, YYYY')}</p>;
       },
     },
     { headerName: 'Days', field: 'days', width: 200 },

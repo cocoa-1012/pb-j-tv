@@ -9,11 +9,9 @@ import { add, fetch, remove } from './messageSlice';
  */
 export const fetchAllMessageAction = () => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos`
-    );
-
-    dispatch(fetch([]));
+    const res = await axiosInstance.get(`/messages`);
+    console.log(res);
+    dispatch(fetch(res.data));
   } catch (error) {
     console.log(error.message);
   }

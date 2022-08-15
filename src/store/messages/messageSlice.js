@@ -7,11 +7,11 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     fetch: (state, action) => {
-      state.today = action.payload;
+      return action.payload;
     },
 
     add: (state, action) => {
-      state.push(action.payload);
+      return [...state, action.payload];
     },
     remove: (state, action) => {
       return state.reduce((acc, curr) => {

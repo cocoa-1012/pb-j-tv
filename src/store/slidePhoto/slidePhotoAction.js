@@ -1,17 +1,16 @@
 // import { faker } from '@faker-js/faker';
 // import shortid from 'shortid';
+import configData from '../../config';
 import axiosInstance from '../../utilities/axiosInstance';
 import { add, fetchData, remove, updateStatus } from './slidePhotoSlice';
-import configData from '../../config';
 export const fetchAllSlidePhotosAction = () => async (dispatch) => {
   try {
-
-    const res = await axiosInstance.get(
-      configData.SERVER_URL+'slides',{headers:{
-        'userid': localStorage.getItem('accountSelected'),
-        'Authorization': 'Bearer'+localStorage.getItem('token')
-      }}
-    );
+    const res = await axiosInstance.get(configData.SERVER_URL + 'slides', {
+      headers: {
+        userid: localStorage.getItem('accountSelected'),
+        Authorization: 'Bearer' + localStorage.getItem('token'),
+      },
+    });
 
     dispatch(fetchData(res.data));
     // const res = await axiosInstance.get(
@@ -45,9 +44,7 @@ export const addSlidePhotoAction =
 
 export const removeSlidePhotoAction = (id) => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos/1`
-    );
+    await axiosInstance.delete(`/slides/${id}`);
     dispatch(remove({ id }));
   } catch (error) {
     console.log(error.message);

@@ -28,23 +28,26 @@ const SchedulerMessageForm = () => {
     handleSubmit,
     setValue,
     clearErrors,
+    reset,
   } = useForm({
     defaultValues: {
       days: [],
-      customMessage: '',
+      message: '',
       reoccur: '1',
-      date: null,
+      dateTime: null,
       duration: 0,
     },
   });
   const dispatch = useDispatch();
   const submitHandler = (values) => {
     // all values
-    console.log(values);
+    const id = localStorage.getItem('accountSelected');
+    values.userId = id;
+    values.days = values.days.length;
     dispatch(
       addMessageAction(values, (isOk, result) => {
         if (isOk) {
-          console.log('ok');
+          reset();
         } else {
           console.log('is not ok.');
           console.log(result);
@@ -74,7 +77,7 @@ const SchedulerMessageForm = () => {
               rows={5}
               size='small'
               fullWidth
-              {...register('customMessage', {
+              {...register('message', {
                 required: 'This field is required!',
                 maxLength: {
                   value: 90,
@@ -85,18 +88,18 @@ const SchedulerMessageForm = () => {
 
             <Stack
               direction='row'
-              justifyContent={errors?.customMessage ? 'space-between' : 'end'}
+              justifyContent={errors?.message ? 'space-between' : 'end'}
             >
-              {errors?.customMessage && (
+              {errors?.message && (
                 <FormHelperText sx={{ color: 'red' }}>
-                  {errors.customMessage.message}
+                  {errors.message.message}
                 </FormHelperText>
               )}
 
-              {watch('customMessage')?.length <= 90 && (
+              {watch('message')?.length <= 90 && (
                 <Box>
                   <FormHelperText sx={{ color: 'red' }}>
-                    {90 - watch('customMessage').length} characters left
+                    {90 - watch('message').length} characters left
                   </FormHelperText>
                 </Box>
               )}
@@ -108,9 +111,7 @@ const SchedulerMessageForm = () => {
             <RadioGroup
               aria-labelledby='demo-radio-buttons-group-label'
               name='radio-buttons-group'
-              {...register('reoccur', {
-                required: 'This field is required!',
-              })}
+              {...register('reoccur')}
               value={watch('reoccur')}
               onChange={(_, value) => setValue('reoccur', value)}
             >
@@ -130,22 +131,22 @@ const SchedulerMessageForm = () => {
             <div>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
-                  {...register('date', {
+                  {...register('dateTime', {
                     required: 'This field is required!',
                   })}
-                  value={watch('date')}
+                  value={watch('dateTime')}
                   onChange={(newValue) => {
-                    setValue('date', newValue);
-                    if (errors?.date) {
-                      clearErrors('date');
+                    setValue('dateTime', newValue);
+                    if (errors?.dateTime) {
+                      clearErrors('dateTime');
                     }
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              {errors?.date && (
+              {errors?.dateTime && (
                 <FormHelperText sx={{ color: 'red' }}>
-                  {errors.date.message}
+                  {errors.dateTime.message}
                 </FormHelperText>
               )}
             </div>

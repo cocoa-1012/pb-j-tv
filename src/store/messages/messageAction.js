@@ -19,24 +19,24 @@ export const fetchAllMessageAction = () => async (dispatch) => {
   }
 };
 
-export const addMessageAction =
-  (data = {}, callback) =>
-  async (dispatch) => {
-    try {
-      const res = await axiosInstance.get(
-        `https://jsonplaceholder.typicode.com/todos/1`
-      );
+export const addMessageAction = (data, callback) => async (dispatch) => {
+  console.log(data);
+  try {
+    const res = await axiosInstance.post(`/messages`, data);
+    const { data: messageData } = await axiosInstance.get(
+      `/messages/${res.data.id}`
+    );
 
-      dispatch(add(data));
-      callback(true);
-    } catch (error) {
-      callback(
-        false,
-        error?.response?.status === 400 ? error?.response?.data : {}
-      );
-      console.log(error.message);
-    }
-  };
+    dispatch(add(messageData));
+    callback(true);
+  } catch (error) {
+    callback(
+      false,
+      error?.response?.status === 400 ? error?.response?.data : {}
+    );
+    console.log(error.message);
+  }
+};
 
 export const removeMessageAction = (id) => async (dispatch) => {
   try {

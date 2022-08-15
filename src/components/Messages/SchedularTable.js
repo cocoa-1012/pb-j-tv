@@ -2,15 +2,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import moment from 'moment';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeMessageAction } from '../../store/messages/messageAction';
-
 const SchedularTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
   const messages = useSelector((state) => {
     // return whatever data you want from redux state
-    return [];
+    return state.messages.length > 0 ? state.messages : [];
   });
 
   const dispatch = useDispatch();
@@ -18,7 +18,14 @@ const SchedularTable = () => {
   const columns = [
     { headerName: 'Message:', field: 'message', width: 250 },
     { headerName: 'Reoccur', field: 'reoccur', width: 200 },
-    { headerName: 'Date and Time', field: 'dateTime', width: 200 },
+    {
+      headerName: 'Date and Time',
+      field: 'dateTime',
+      width: 200,
+      renderCell: ({ value }) => {
+        return <p>{moment(value).format('h:mm a, MMM Do YYYY')}</p>;
+      },
+    },
     { headerName: 'Days', field: 'days', width: 200 },
     { headerName: 'Duration', field: 'duration', width: 200 },
     {

@@ -8,7 +8,26 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import moment from 'moment';
+import { useSelector } from 'react-redux';
+
 const TodaysMessages = () => {
+  const messages = useSelector((state) => {
+    if (state.messages.length <= 0) return [];
+    return state.messages
+      .reduce((acc, cur) => {
+        if (moment(new Date()).isSame(moment(cur.dateTime), 'day')) {
+          acc.push(cur);
+        }
+        return acc;
+      }, [])
+      .sort((a, b) => {
+        return (
+          new moment(a.dateTime).format('X') -
+          new moment(b.dateTime).format('X')
+        );
+      });
+  });
   return (
     <Box sx={styles.main}>
       <Typography variant='h6' sx={{ mb: 1 }} color='#fff'>
@@ -31,7 +50,7 @@ const TodaysMessages = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {[1, 2, 3].map((row, index) => (
+                  {messages.map((row, index) => (
                     <TableRow
                       key={row}
                       sx={{
@@ -43,8 +62,10 @@ const TodaysMessages = () => {
                       <TableCell component='th' scope='row'>
                         {index + 1}
                       </TableCell>
-                      <TableCell align='right'></TableCell>
-                      <TableCell align='right'></TableCell>
+                      <TableCell align='center'>{row.message}</TableCell>
+                      <TableCell align='center'>
+                        {moment(row.dateTime).format('hh:mm a | MMM D, YYYY')}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

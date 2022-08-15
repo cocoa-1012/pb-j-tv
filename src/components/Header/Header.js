@@ -1,11 +1,18 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/images/logo.png';
+import { fetchAllMessageAction } from '../../store/messages/messageAction';
 import Navbar from './Navbar';
 import TopNavBar from './TopNavBar';
 
 const Header = ({ isNavShow = true }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log('fetchAllMessageAction');
+    dispatch(fetchAllMessageAction());
+  }, [dispatch]);
   return (
     <Box
       component={'div'}

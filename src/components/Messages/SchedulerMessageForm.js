@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -130,12 +131,13 @@ const SchedulerMessageForm = () => {
           <Layout text={'Date and time'}>
             <div>
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
+                <DateTimePicker
                   {...register('dateTime', {
                     required: 'This field is required!',
                   })}
                   value={watch('dateTime')}
                   onChange={(newValue) => {
+                    console.log(newValue);
                     setValue('dateTime', newValue);
                     if (errors?.dateTime) {
                       clearErrors('dateTime');

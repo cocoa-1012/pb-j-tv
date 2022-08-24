@@ -38,7 +38,7 @@ const TopNavBar = ({ isNavShow }) => {
           </Box>
         )}
         {isNavShow && (
-          <Box component={Link} to='/' sx={link}>
+          <Box component={Link} to={`/lobby-display`} sx={link}>
             Lobby Display
           </Box>
         )}

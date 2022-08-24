@@ -12,12 +12,12 @@ import {
 import configData from '../../config';
 export const fetchAllCamerasAction = () => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      configData.SERVER_URL+'cameras',{headers:{
-        'userid': localStorage.getItem('accountSelected'),
-        'Authorization': 'Bearer'+localStorage.getItem('token')
-      }}
-    );
+    const res = await axiosInstance.get(configData.SERVER_URL + 'cameras', {
+      headers: {
+        userid: localStorage.getItem('accountSelected'),
+        Authorization: 'Bearer' + localStorage.getItem('token'),
+      },
+    });
 
     dispatch(fetchData(res.data));
   } catch (error) {
@@ -62,13 +62,18 @@ export const removeCamerasAction = (id) => async (dispatch) => {
   }
 };
 export const changeCamerasLayoutAction =
-  ({ displayLoayoutId }) =>
+  ({ rowCount, columnCount, orientation }) =>
   async (dispatch) => {
     try {
       const res = await axiosInstance.get(
         `https://jsonplaceholder.typicode.com/todos/1`
       );
-      dispatch(changeLayout({ displayLoayoutId }));
+
+      const data = { row: rowCount, column: columnCount, orientation };
+
+      localStorage.setItem('cameraData', JSON.stringify(data));
+
+      dispatch(changeLayout(data));
     } catch (error) {
       console.log(error.message);
     }
@@ -78,7 +83,21 @@ export const slideShowCamerasLayoutAction = (value) => async (dispatch) => {
     const res = await axiosInstance.get(
       `https://jsonplaceholder.typicode.com/todos/1`
     );
+
+    localStorage.setItem('isSideShow', value);
+
     dispatch(updateSlide(value));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const setLayoutDataFromLocalStorage = () => (dispatch) => {
+  try {
+    const data = JSON.parse(localStorage.getItem('cameraData'));
+    const isSideShow = JSON.parse(localStorage.getItem('isSideShow'));
+    dispatch(changeLayout(data));
+    dispatch(updateSlide(isSideShow));
   } catch (error) {
     console.log(error.message);
   }

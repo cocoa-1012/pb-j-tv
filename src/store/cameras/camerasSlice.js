@@ -3,7 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   data: [],
   layout: {
-    displayGridSelected: 1
+    displayGridSelected: 1,
+    row: 1,
+    column: 1,
+    orientation: '',
   },
   slide: false,
 };
@@ -28,7 +31,10 @@ export const camerasSlice = createSlice({
       }, []);
     },
     changeLayout: (state, action) => {
-      state.layout = action.payload;
+      const { row, column, orientation } = action.payload;
+      state.layout.row = row;
+      state.layout.column = column;
+      state.layout.orientation = orientation;
     },
     updateSlide: (state, action) => {
       state.slide = !!action.payload;

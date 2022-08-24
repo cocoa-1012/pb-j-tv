@@ -1,6 +1,45 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import CamDisplayLayoutItem from './CamDisplayLayoutItem';
+const layoutItems = [
+  {
+    id: 1,
+    rowCount: 1,
+    columnCount: 1,
+    orientation: 'horizontal',
+  },
+  {
+    id: 2,
+    rowCount: 3,
+    columnCount: 3,
+    orientation: '',
+  },
+  {
+    id: 3,
+    rowCount: 3,
+    columnCount: 4,
+    orientation: '',
+  },
+  {
+    id: 4,
+    rowCount: 4,
+    columnCount: 4,
+    orientation: '',
+  },
+  {
+    id: 5,
+    rowCount: 1,
+    columnCount: 1,
+    orientation: '',
+  },
+  {
+    id: 6,
+    rowCount: 4,
+    columnCount: 2,
+    orientation: '',
+  },
+];
+
 const RightSideBar = () => {
   return (
     <>
@@ -17,12 +56,9 @@ const RightSideBar = () => {
           Chose how you want cameras to show on display
         </Typography>
         <div>
-          <CamDisplayLayoutItem rowCount={1} column={1} orientation="horizontal" displayId="1"/>
-          <CamDisplayLayoutItem rowCount={3} column={3} orientation=""  displayId="2"/>
-          <CamDisplayLayoutItem rowCount={3} column={4} orientation=""  displayId="3"/>
-          <CamDisplayLayoutItem rowCount={4} column={4} orientation=""  displayId="4"/>
-          <CamDisplayLayoutItem rowCount={1} column={1} orientation="vertical"  displayId="5"/>
-          <CamDisplayLayoutItem rowCount={4} column={2} orientation=""  displayId="6"/>
+          {layoutItems.map((item) => (
+            <CamDisplayLayoutItem {...item} key={item.id} />
+          ))}
         </div>
       </Box>
     </>

@@ -3,19 +3,28 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCamerasLayoutAction } from '../../store/cameras/camerasAction';
 
-const CamDisplayLayoutItem = ({ rowCount = 1, column = 1, orientation = "",displayId=1 }) => {
+const CamDisplayLayoutItem = ({
+  rowCount = 1,
+  columnCount = 1,
+  orientation = '',
+}) => {
   const height = 200;
   const width = 230;
-  const { displayGridSelected } = useSelector((state) => state.cameras.layout);
+  const {
+    row,
+    column,
+    orientation: orn,
+  } = useSelector((state) => state.cameras.layout);
   const dispatch = useDispatch();
 
   const isEnable = useMemo(() => {
-    return displayGridSelected == displayId;
-  }, [displayGridSelected, displayId]);
+    if (rowCount === row && columnCount === column && orn === orientation)
+      return true;
+    return false;
+  }, [row, column, rowCount, columnCount, orn, orientation]);
 
   const clickHandler = () => {
-    if (isEnable) return;
-    dispatch(changeCamerasLayoutAction({ displayId: displayId }));
+    dispatch(changeCamerasLayoutAction({ rowCount, columnCount, orientation }));
   };
 
   return (
@@ -28,7 +37,9 @@ const CamDisplayLayoutItem = ({ rowCount = 1, column = 1, orientation = "",displ
           mb: '5px',
         }}
       >
-        {rowCount === 1 ? '1' : `${rowCount}×${column} ${rowCount * column}`}{' '}
+        {rowCount === 1
+          ? '1'
+          : `${rowCount}×${columnCount} ${rowCount * columnCount}`}{' '}
         Cam Display {orientation}
       </Typography>
       <Stack
@@ -51,9 +62,9 @@ const CamDisplayLayoutItem = ({ rowCount = 1, column = 1, orientation = "",displ
               }}
             >
               <Grid container gap={'5px'}>
-                {new Array(rowCount * column).fill().map((_, i) => {
+                {new Array(rowCount * columnCount).fill().map((_, i) => {
                   return (
-                    <Grid xs={11 / column}>
+                    <Grid xs={11 / columnCount}>
                       <Box sx={styles.box({ height, rowCount })} />
                     </Grid>
                   );
@@ -65,7 +76,7 @@ const CamDisplayLayoutItem = ({ rowCount = 1, column = 1, orientation = "",displ
         <div>
           <Button
             variant='contained'
-            color={!isEnable ? 'primary' : 'secondary'}
+            color={isEnable ? 'secondary' : 'primary'}
             onClick={clickHandler}
           >
             {!isEnable ? 'Enable' : 'Disable'}

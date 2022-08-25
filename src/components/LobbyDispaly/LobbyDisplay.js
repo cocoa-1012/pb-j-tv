@@ -5,9 +5,7 @@ import bgPattern from '../../assets/images/bg_pattern.png';
 import { useInnerSize } from '../../hooks/useInnerSize';
 import { fetchAllCamerasAction } from '../../store/cameras/camerasAction';
 import SingleCamera from './SingleCamera';
-
-const image =
-  'https://images.pexels.com/photos/8977598/pexels-photo-8977598.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load';
+import Slider from './Sliders';
 
 const LobbyDisplayContent = () => {
   const { height: windowHeight } = useInnerSize();
@@ -35,7 +33,10 @@ const LobbyDisplayContent = () => {
 
   return (
     <>
-      <Box as='div' sx={{ background: `url(${bgPattern})` }}>
+      <Box
+        as='div'
+        sx={{ background: `url(${bgPattern})`, height: windowHeight }}
+      >
         <Grid container>
           {cameras.slice(0, total).map((camera, i) => (
             <Grid xs={12} sm={12 / column} sx={{}} key={camera.id}>
@@ -43,25 +44,7 @@ const LobbyDisplayContent = () => {
             </Grid>
           ))}
         </Grid>
-        <>
-          {slide && (
-            <Box
-              as='div'
-              sx={{
-                width: '100%',
-                height: imageHeight - 20,
-                marginTop: '10px',
-                marginBottom: '10px',
-              }}
-            >
-              <Box
-                as='img'
-                src={image}
-                sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              />
-            </Box>
-          )}
-        </>
+        <>{slide && <Slider imageHeight={imageHeight} />}</>
       </Box>
     </>
   );

@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import bgPattern from '../../assets/images/bg_pattern.png';
 import { useInnerSize } from '../../hooks/useInnerSize';
 import { fetchAllCamerasAction } from '../../store/cameras/camerasAction';
 import SingleCamera from './SingleCamera';
@@ -34,7 +35,7 @@ const LobbyDisplayContent = () => {
 
   return (
     <>
-      <div>
+      <Box as='div' sx={{ background: `url(${bgPattern})` }}>
         <Grid container>
           {cameras.slice(0, total).map((camera, i) => (
             <Grid xs={12} sm={12 / column} sx={{}} key={camera.id}>
@@ -61,7 +62,7 @@ const LobbyDisplayContent = () => {
             </Box>
           )}
         </>
-      </div>
+      </Box>
     </>
   );
 };

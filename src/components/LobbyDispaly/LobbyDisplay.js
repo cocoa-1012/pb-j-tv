@@ -38,10 +38,7 @@ const LobbyDisplayContent = () => {
         <Grid container>
           {cameras.slice(0, total).map((camera, i) => (
             <Grid xs={12} sm={12 / column} sx={{}} key={camera.id}>
-              <SingleCamera
-                cameraName={camera.cameraName}
-                height={height - 2}
-              />
+              <SingleCamera ipAddress={camera.ipAddress} height={height - 2} />
             </Grid>
           ))}
         </Grid>

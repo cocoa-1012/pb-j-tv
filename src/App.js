@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Accounts from './page/Accounts/Account';
+import BackDisplay from './page/BackDispaly/BackDisplay';
 import Dashboard from './page/Dashboard/Dashboard';
 import DisplayCameras from './page/DisplayCameras/DisplayCameras';
 import LobbyDisplay from './page/LobbyDispaly/LobbyDisplay';
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='/photo-slide' element={<PhotoSlide />} />
 
           <Route path='/lobby-display' element={<LobbyDisplay />} />
+          <Route path='/back-display' element={<BackDisplay />} />
         </Routes>
       </Router>
     </div>

@@ -43,7 +43,7 @@ const TopNavBar = ({ isNavShow }) => {
           </Box>
         )}
         {isNavShow && (
-          <Box component={Link} to='/' sx={link}>
+          <Box component={Link} to='/back-display' sx={link}>
             Back Display
           </Box>
         )}

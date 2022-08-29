@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import moment from 'moment';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -23,6 +24,7 @@ const MessagesForm = () => {
     handleSubmit,
     setValue,
     clearErrors,
+    reset,
   } = useForm({
     defaultValues: {
       category: '',
@@ -33,12 +35,19 @@ const MessagesForm = () => {
   const dispatch = useDispatch();
 
   const submitHandler = (values) => {
-    // all values
-    console.log(values);
+    const data = {
+      userId: parseInt(localStorage.getItem('accountSelected')),
+      message: values.customMessage,
+      dateTime: moment(),
+      lastSent: moment(),
+      duration: 90,
+    };
+
     dispatch(
-      addMessageAction(values, (isOk, result) => {
+      addMessageAction(data, (isOk, result) => {
         if (isOk) {
           console.log('ok');
+          reset();
         } else {
           console.log('is not ok.');
           console.log(result);
@@ -60,9 +69,7 @@ const MessagesForm = () => {
                     <FormControl fullWidth>
                       <OutlinedInput
                         id='component-outlined'
-                        {...register('important', {
-                          required: 'This field is required!',
-                        })}
+                        {...register('important')}
                         size='small'
                       />
                     </FormControl>
@@ -81,9 +88,7 @@ const MessagesForm = () => {
                     <FormControl fullWidth>
                       <OutlinedInput
                         id='component-outlined'
-                        {...register('urgent', {
-                          required: 'This field is required!',
-                        })}
+                        {...register('urgent')}
                         size='small'
                       />
                     </FormControl>
@@ -105,9 +110,7 @@ const MessagesForm = () => {
                   <Stack spacing={2} direction='row'>
                     <OutlinedInput
                       id='component-outlined'
-                      {...register('emergency', {
-                        required: 'This field is required!',
-                      })}
+                      {...register('emergency')}
                       size='small'
                       fullWidth
                     />
@@ -128,9 +131,7 @@ const MessagesForm = () => {
                 </div>
                 <div>
                   <SelectCategory
-                    {...register('category', {
-                      required: 'This field is required!',
-                    })}
+                    {...register('category')}
                     onChange={(e) => {
                       setValue('category', e.target.value);
                       if (errors?.category) {
@@ -152,9 +153,7 @@ const MessagesForm = () => {
                 <div>
                   <Typography>Automated Messages:</Typography>
                   <SelectMessage
-                    {...register('automatedMessage', {
-                      required: 'This field is required!',
-                    })}
+                    {...register('automatedMessage')}
                     onChange={(e) => {
                       setValue('automatedMessage', e.target.value);
                       if (errors?.automatedMessage) {

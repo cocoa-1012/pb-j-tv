@@ -2,7 +2,7 @@ import axiosInstance from '../../utilities/axiosInstance';
 import { add, fetchData, remove, update } from './accountSlice';
 
 // import ACCOUNTS_DATA from './data';
-export const storeInfoLocalStorage = (id) => async (dispatch) => {
+export const storeInfoLocalStorage = (id) => {
   localStorage.setItem('accountSelected', id);
 };
 /**

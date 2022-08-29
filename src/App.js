@@ -8,7 +8,6 @@ import LobbyDisplay from './page/LobbyDispaly/LobbyDisplay';
 import LoginPage from './page/Login/Login';
 import Messages from './page/Messages/Messages';
 import PhotoSlide from './page/PhotoSlide/PhotoSlide';
-
 const App = () => {
   return (
     <div>

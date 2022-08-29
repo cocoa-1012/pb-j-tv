@@ -58,7 +58,10 @@ const AccountTable = ({ data, isOpen, setIsOpen }) => {
 
         return (
           <>
-            <Link to={`/dashboard`} onClick={storeInfoLocalStorage(row.id)}>
+            <Link
+              to={`/dashboard`}
+              onClick={() => storeInfoLocalStorage(row.id)}
+            >
               View Page
             </Link>
           </>

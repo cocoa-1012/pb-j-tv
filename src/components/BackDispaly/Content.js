@@ -1,38 +1,71 @@
 import { Box } from '@mui/system';
-import React, { useEffect, useMemo, useState } from 'react';
+import moment from 'moment';
+import React, { useMemo, useState } from 'react';
+import messageSound from '../../assets/sounds/new-message.mp3';
 import { useInnerSize } from '../../hooks/useInnerSize';
+import socket from '../../utilities/socketIOInstance';
 import Item from './Item';
 
 const Content = () => {
   const { height: windowHeight } = useInnerSize();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setData(DATA);
-  }, []);
+  const [allMessages, setMessages] = useState([]);
 
   const removeItem = (id) => {
-    const filterData = data.filter((item) => item.id !== id);
-    setData(filterData);
+    const filterData = allMessages.filter((item) => item.id !== id);
+    setMessages(filterData);
+  };
+  const playAudio = () => {
+    const audio = new Audio(messageSound);
+    audio.play();
   };
 
   const height = useMemo(() => {
-    const calculateHeight = windowHeight / data.length;
+    const calculateHeight = windowHeight / allMessages.length;
     if (calculateHeight > 150) return calculateHeight;
     return 150 + 50;
-  }, [data, windowHeight]);
+  }, [allMessages, windowHeight]);
+
+  socket.on('connect', () => {
+    console.log('socket connected');
+    let savedMessagedData = [];
+    socket.on('users connected', function () {
+      console.log('user connected');
+      socket.on('new note', function (messageData) {
+        console.log('add note');
+        const findData = savedMessagedData?.find((item) => {
+          return item.id === messageData.id;
+        });
+
+        if (!findData) {
+          setMessages((prevData) => {
+            const find = prevData.find((p) => p.id === messageData.id);
+
+            if (!find) {
+              savedMessagedData.push(messageData);
+              playAudio();
+              setTimeout(() => {
+                removeItem(messageData.id);
+                savedMessagedData = savedMessagedData.filter(
+                  (item) => item.id !== messageData.id
+                );
+              }, 90 * 1000);
+              return [...prevData, messageData];
+            }
+            return prevData;
+          });
+        }
+      });
+    });
+  });
 
   return (
     <Box as='div' sx={{ overflowY: 'auto', height: windowHeight }}>
-      {data.map((item) => (
+      {allMessages.map((item) => (
         <Item
           key={item.id}
-          text={item.text}
-          date={item.date}
-          id={item.id}
+          text={item.message}
+          date={moment(item.dateTime).format(' h:mm:ss a ,MMM D, YYYY ')}
           height={height}
-          removeItem={removeItem}
-          dataLength={data.length}
         />
       ))}
     </Box>
@@ -40,36 +73,3 @@ const Content = () => {
 };
 
 export default Content;
-
-const DATA = [
-  {
-    id: 1,
-    text: 'Senior Financial Analyst',
-    date: '2/26/2022',
-  },
-  {
-    id: 2,
-    text: 'Accounting Assistant I',
-    date: '3/23/2022',
-  },
-  {
-    id: 3,
-    text: 'Quality Engineer',
-    date: '9/17/2021',
-  },
-  {
-    id: 4,
-    text: 'Programmer I',
-    date: '11/29/2021',
-  },
-  {
-    id: 5,
-    text: 'Analog Circuit Design manager',
-    date: '7/5/2022',
-  },
-  //   {
-  //     id: 6,
-  //     text: 'Analog Circuit Design manager',
-  //     date: '7/5/2022',
-  //   },
-];

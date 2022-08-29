@@ -1,27 +1,21 @@
 import { Box } from '@mui/system';
 import React, { useEffect, useMemo, useState } from 'react';
 
-const Item = ({ date, text, height = 100, removeItem, id, dataLength }) => {
+const Item = ({ date, text, height = 100 }) => {
   const [isBlink, setIsBlink] = useState(false);
   useEffect(() => {
-    const timer = setInterval(() => {
+    const blinker = setInterval(() => {
       setIsBlink((p) => !p);
-    }, 0.5 * 1000);
+    }, 0.25 * 1000);
     setTimeout(() => {
-      clearInterval(timer);
+      clearInterval(blinker);
       setIsBlink(false);
-    }, 5 * 1000);
+    }, 30 * 1000);
     return () => {
       setIsBlink(false);
-      clearInterval(timer);
+      clearInterval(blinker);
     };
   }, []);
-
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       removeItem(id);
-  //     }, 10 * 1000);
-  //   }, [id, removeItem]);
 
   const fontSize = useMemo(() => {
     if (!text) return 0;

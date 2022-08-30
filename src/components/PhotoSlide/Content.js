@@ -49,7 +49,10 @@ const Content = () => {
                   <Box sx={styles.imageWrapper}>
                     <Box
                       component={'img'}
-                      src={"http://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/"+photo.file_name}
+                      src={
+                        'https://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/' +
+                        photo.file_name
+                      }
                       sx={styles.image}
                     />
                   </Box>

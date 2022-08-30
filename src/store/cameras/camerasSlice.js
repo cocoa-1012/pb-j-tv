@@ -23,7 +23,7 @@ export const camerasSlice = createSlice({
     },
 
     remove: (state, action) => {
-      state.data = state.reduce((acc, curr) => {
+      state.data = state.data.reduce((acc, curr) => {
         if (curr.id !== action.payload.id) {
           acc.push(curr);
         }
@@ -39,11 +39,42 @@ export const camerasSlice = createSlice({
     updateSlide: (state, action) => {
       state.slide = !!action.payload;
     },
+    updateStatus: (state, action) => {
+      const data = action.payload;
+      state.data = state.data.reduce((acc, cur) => {
+        if (cur.id === data.id) {
+          acc.push(data);
+        } else {
+          acc.push(cur);
+        }
+
+        return acc;
+      }, []);
+    },
+    update: (state, action) => {
+      const data = action.payload;
+      state.data = state.data.reduce((acc, cur) => {
+        if (cur.id === data.id) {
+          acc.push(data);
+        } else {
+          acc.push(cur);
+        }
+
+        return acc;
+      }, []);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { add, fetchData, remove, changeLayout, updateSlide } =
-  camerasSlice.actions;
+export const {
+  add,
+  fetchData,
+  remove,
+  changeLayout,
+  updateSlide,
+  updateStatus,
+  update,
+} = camerasSlice.actions;
 
 export default camerasSlice.reducer;

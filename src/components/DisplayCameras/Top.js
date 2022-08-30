@@ -4,12 +4,16 @@ import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { slideShowCamerasLayoutAction } from '../../store/cameras/camerasAction';
+import AddCamera from './Add/AddCamera';
 const Top = () => {
   const isSlideShow = useSelector((state) => state.cameras.slide);
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
+
   const changeHandler = (e) => {
     dispatch(slideShowCamerasLayoutAction(e.target.checked));
   };
@@ -40,7 +44,11 @@ const Top = () => {
                 color='secondary'
                 sx={{ textTransform: 'none' }}
               >
-                <Stack spacing={1} direction='row'>
+                <Stack
+                  spacing={1}
+                  direction='row'
+                  onClick={() => setOpen(true)}
+                >
                   <AddIcon />
                   <span>Add ip Cams</span>
                 </Stack>
@@ -49,6 +57,7 @@ const Top = () => {
           </Stack>
         </Stack>
       </Box>
+      <AddCamera open={open} setOpen={setOpen} />
     </>
   );
 };

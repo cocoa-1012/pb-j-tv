@@ -1,7 +1,6 @@
 import { Box } from '@mui/system';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
-import messageSound from '../../assets/sounds/new-message.mp3';
 import { useInnerSize } from '../../hooks/useInnerSize';
 import socket from '../../utilities/socketIOInstance';
 import Item from './Item';
@@ -13,10 +12,6 @@ const Content = () => {
   const removeItem = (id) => {
     const filterData = allMessages.filter((item) => item.id !== id);
     setMessages(filterData);
-  };
-  const playAudio = () => {
-    const audio = new Audio(messageSound);
-    audio.play();
   };
 
   const height = useMemo(() => {
@@ -31,7 +26,6 @@ const Content = () => {
     socket.on('users connected', function () {
       console.log('user connected');
       socket.on('new note', function (messageData) {
-        console.log('add note');
         const findData = savedMessagedData?.find((item) => {
           return item.id === messageData.id;
         });
@@ -42,7 +36,7 @@ const Content = () => {
 
             if (!find) {
               savedMessagedData.push(messageData);
-              playAudio();
+
               setTimeout(() => {
                 removeItem(messageData.id);
                 savedMessagedData = savedMessagedData.filter(

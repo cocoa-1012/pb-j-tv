@@ -1,6 +1,8 @@
 import { Box } from '@mui/system';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import messageSound from '../../assets/sounds/new-message.mp3';
+
 const Item = ({ date, text, height = 100 }) => {
   const [isBlink, setIsBlink] = useState(false);
   useEffect(() => {
@@ -16,6 +18,11 @@ const Item = ({ date, text, height = 100 }) => {
       clearInterval(blinker);
     };
   }, []);
+
+  useEffect(() => {
+    const audio = new Audio(messageSound);
+    audio.play();
+  }, [text]);
 
   const fontSize = useMemo(() => {
     if (!text) return 0;

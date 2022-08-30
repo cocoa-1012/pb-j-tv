@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addSlidePhotoAction } from '../../store/slidePhoto/slidePhotoAction';
 
 const ImageUploadForm = () => {
   const theme = useTheme();
@@ -19,12 +21,33 @@ const ImageUploadForm = () => {
   const [hasImage, setHasImage] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
 
+  const dispatch = useDispatch();
+
   const submitHandler = (e) => {
     e.preventDefault();
+
     if (!hasImage) {
       setShowErrors(true);
       return;
     }
+    setShowErrors(false);
+
+    const data = {
+      image,
+      sliderTime,
+    };
+
+    dispatch(
+      addSlidePhotoAction(data, (result) => {
+        if (result) {
+          setImage('');
+          setHasImage(false);
+          setShowErrors(false);
+        } else {
+          setShowErrors(true);
+        }
+      })
+    );
   };
   return (
     <div>

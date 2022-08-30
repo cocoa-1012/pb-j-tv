@@ -7,6 +7,7 @@ const initialState = {
     row: 1,
     column: 1,
     orientation: '',
+    slideShowPosition: 'bottom',
   },
   slide: false,
 };
@@ -31,10 +32,24 @@ export const camerasSlice = createSlice({
       }, []);
     },
     changeLayout: (state, action) => {
-      const { row, column, orientation } = action.payload;
-      state.layout.row = row;
-      state.layout.column = column;
-      state.layout.orientation = orientation;
+      const {
+        row = '',
+        column = '',
+        orientation = '',
+        slideShowPosition = '',
+      } = action.payload;
+      if (row) {
+        state.layout.row = row;
+      }
+      if (column) {
+        state.layout.column = column;
+      }
+      if (orientation) {
+        state.layout.orientation = orientation;
+      }
+      if (slideShowPosition) {
+        state.layout.slideShowPosition = slideShowPosition;
+      }
     },
     updateSlide: (state, action) => {
       state.slide = !!action.payload;

@@ -52,6 +52,6 @@ function Item({ imageHeight, item }) {
 }
 
 const baseUrl =
-  'https://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/';
+  'http://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/';
 
 export default Slider;

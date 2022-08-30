@@ -103,12 +103,15 @@ export const slideShowCamerasLayoutAction = (value) => async (dispatch) => {
   }
 };
 
-export const setLayoutDataFromLocalStorage = () => (dispatch) => {
+export const setLayoutDataFromLocalStorage = () => (dispatch, getState) => {
   try {
     const data = JSON.parse(localStorage.getItem('cameraData'));
     const isSideShow = JSON.parse(localStorage.getItem('isSideShow'));
+
+    const slideShowPosition = localStorage.getItem('slideShowPosition');
     dispatch(changeLayout(data));
     dispatch(updateSlide(isSideShow));
+    dispatch(changeLayout({ slideShowPosition }));
   } catch (error) {
     console.log(error.message);
   }

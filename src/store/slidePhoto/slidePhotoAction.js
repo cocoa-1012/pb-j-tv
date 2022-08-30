@@ -23,24 +23,33 @@ export const fetchAllSlidePhotosAction = () => async (dispatch) => {
   }
 };
 
-export const addSlidePhotoAction =
-  (data = {}, callback) =>
-  async (dispatch) => {
-    try {
-      const res = await axiosInstance.get(
-        `https://jsonplaceholder.typicode.com/todos/1`
-      );
+export const addSlidePhotoAction = (data, callback) => async (dispatch) => {
+  try {
+    const formData = new FormData();
+    formData.append('name', data.image.name);
+    formData.append('file', data.image);
+    formData.append('file_name', data.image.name);
+    formData.append('file_title', data.image.name);
+    formData.append('status', 0);
+    formData.append('sliderTime', data.sliderTime);
+    formData.append('userId', localStorage.getItem('accountSelected'));
 
-      dispatch(add(data));
-      callback(true);
-    } catch (error) {
-      callback(
-        false,
-        error?.response?.status === 400 ? error?.response?.data : {}
-      );
-      console.log(error.message);
-    }
-  };
+    const { data: photo } = await axiosInstance.post(`/slides`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+
+    dispatch(add(photo));
+    callback(true);
+  } catch (error) {
+    callback(
+      false,
+      error?.response?.status === 400 ? error?.response?.data : {}
+    );
+    console.log(error.message);
+  }
+};
 
 export const removeSlidePhotoAction = (id) => async (dispatch) => {
   try {

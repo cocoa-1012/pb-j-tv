@@ -10,7 +10,7 @@ export const slidePhotoSlice = createSlice({
       return action.payload;
     },
     add: (state, action) => {
-      state.push(action.push);
+      state.push(action.payload);
     },
     remove: (state, action) => {
       return state.reduce((acc, curr) => {

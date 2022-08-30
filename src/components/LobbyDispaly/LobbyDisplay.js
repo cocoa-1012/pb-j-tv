@@ -37,6 +37,9 @@ const LobbyDisplayContent = () => {
         as='div'
         sx={{ background: `url(${bgPattern})`, height: windowHeight }}
       >
+        {slide && layout?.slideShowPosition === 'top' && (
+          <Slider imageHeight={imageHeight} />
+        )}
         <Grid container>
           {cameras.slice(0, total).map((camera, i) => (
             <Grid xs={12} sm={12 / column} sx={{}} key={camera.id}>
@@ -44,7 +47,12 @@ const LobbyDisplayContent = () => {
             </Grid>
           ))}
         </Grid>
-        <>{slide && <Slider imageHeight={imageHeight} />}</>
+        {slide && layout?.slideShowPosition === 'bottom' && (
+          <Slider imageHeight={imageHeight} />
+        )}
+        {!layout?.slideShowPosition && slide && (
+          <Slider imageHeight={imageHeight} />
+        )}
       </Box>
     </>
   );

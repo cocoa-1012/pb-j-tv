@@ -12,7 +12,7 @@ const Top = () => {
   const isSlideShow = useSelector((state) => state.cameras.slide);
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const changeHandler = (e) => {
     dispatch(slideShowCamerasLayoutAction(e.target.checked));

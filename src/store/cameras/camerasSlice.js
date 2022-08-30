@@ -39,11 +39,29 @@ export const camerasSlice = createSlice({
     updateSlide: (state, action) => {
       state.slide = !!action.payload;
     },
+    updateStatus: (state, action) => {
+      const data = action.payload;
+      state.data = state.data.reduce((acc, cur) => {
+        if (cur.id === data.id) {
+          acc.push(data);
+        } else {
+          acc.push(cur);
+        }
+
+        return acc;
+      }, []);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { add, fetchData, remove, changeLayout, updateSlide } =
-  camerasSlice.actions;
+export const {
+  add,
+  fetchData,
+  remove,
+  changeLayout,
+  updateSlide,
+  updateStatus,
+} = camerasSlice.actions;
 
 export default camerasSlice.reducer;

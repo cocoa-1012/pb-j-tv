@@ -5,6 +5,7 @@ import {
   fetchData,
   remove,
   updateSlide,
+  updateStatus,
 } from './camerasSlice';
 
 import configData from '../../config';
@@ -98,3 +99,35 @@ export const setLayoutDataFromLocalStorage = () => (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const updateCameraStatusAction =
+  ({ id, type }, callback) =>
+  async (dispatch, getState) => {
+    try {
+      const state = getState();
+      const cameraData = state.cameras.data.find((c) => c.id === id);
+      const dataObject = {
+        ...cameraData,
+      };
+
+      if (type === 'status') {
+        dataObject.status = !cameraData.status;
+      }
+
+      if (type === 'blankStatus') {
+        dataObject.blankStatus = !cameraData.blankStatus;
+      }
+
+      const res = await axiosInstance.put(`/cameras/${id}`, dataObject);
+
+      dispatch(updateStatus(res.data));
+
+      callback(true);
+    } catch (error) {
+      callback(
+        false,
+        error?.response?.status === 400 ? error?.response?.data : {}
+      );
+      console.log(error.message);
+    }
+  };

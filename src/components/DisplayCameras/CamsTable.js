@@ -4,7 +4,10 @@ import { Box, Button, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllCamerasAction } from '../../store/cameras/camerasAction';
+import {
+  fetchAllCamerasAction,
+  updateCameraStatusAction,
+} from '../../store/cameras/camerasAction';
 
 const CamsTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
@@ -21,14 +24,23 @@ const CamsTable = () => {
     { headerName: 'IP Addresses', field: 'ipAddress', width: 200 },
     {
       headerName: 'Enable',
-      field: 'enable',
+      field: 'status',
       sortable: false,
       width: 100,
       renderCell: (props) => {
+        const { status, id } = props.row;
+        const update = () => {
+          dispatch(updateCameraStatusAction({ id, type: 'status' }, () => {}));
+        };
         return (
           <>
-            <Button size='small' variant='contained'>
-              Active
+            <Button
+              size='small'
+              variant='contained'
+              color={status ? 'primary' : 'error'}
+              onClick={update}
+            >
+              {status ? 'Active' : 'Deactive'}
             </Button>
           </>
         );
@@ -36,14 +48,26 @@ const CamsTable = () => {
     },
     {
       headerName: 'Blank',
-      field: 'blank',
+      field: 'blankStatus',
       sortable: false,
       width: 100,
       renderCell: (props) => {
+        const { blankStatus, id } = props.row;
+
+        const update = () => {
+          dispatch(
+            updateCameraStatusAction({ id, type: 'blankStatus' }, () => {})
+          );
+        };
         return (
           <>
-            <Button size='small' variant='contained'>
-              Active
+            <Button
+              size='small'
+              variant='contained'
+              color={blankStatus ? 'primary' : 'error'}
+              onClick={update}
+            >
+              {blankStatus ? 'Active' : 'Deactive'}
             </Button>
           </>
         );

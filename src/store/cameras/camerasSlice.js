@@ -51,6 +51,18 @@ export const camerasSlice = createSlice({
         return acc;
       }, []);
     },
+    update: (state, action) => {
+      const data = action.payload;
+      state.data = state.data.reduce((acc, cur) => {
+        if (cur.id === data.id) {
+          acc.push(data);
+        } else {
+          acc.push(cur);
+        }
+
+        return acc;
+      }, []);
+    },
   },
 });
 
@@ -62,6 +74,7 @@ export const {
   changeLayout,
   updateSlide,
   updateStatus,
+  update,
 } = camerasSlice.actions;
 
 export default camerasSlice.reducer;

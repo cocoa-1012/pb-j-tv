@@ -4,6 +4,7 @@ import {
   changeLayout,
   fetchData,
   remove,
+  update,
   updateSlide,
   updateStatus,
 } from './camerasSlice';
@@ -37,6 +38,21 @@ export const addCamerasAction = (data, callback) => async (dispatch) => {
     const { data: camera } = await axiosInstance.get(`/cameras/${id}`);
 
     dispatch(add(camera));
+
+    callback(true);
+  } catch (error) {
+    callback(
+      false,
+      error?.response?.status === 400 ? error?.response?.data : {}
+    );
+    console.log(error.message);
+  }
+};
+export const updateCamerasAction = (data, callback) => async (dispatch) => {
+  try {
+    await axiosInstance.put(`/cameras/${data.id}`, data);
+    const { data: camera } = await axiosInstance.get(`/cameras/${data.id}`);
+    dispatch(update(camera));
 
     callback(true);
   } catch (error) {

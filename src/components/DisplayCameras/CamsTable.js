@@ -2,17 +2,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Button, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAllCamerasAction,
   removeCamerasAction,
   updateCameraStatusAction,
 } from '../../store/cameras/camerasAction';
+import EditCamera from './Edit/EditCamera';
 
 const CamsTable = () => {
   const [pageSize, setPageSize] = React.useState(10);
   const data = useSelector((state) => state.cameras.data);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [cameraId, setCameraId] = useState('');
 
   const dispatch = useDispatch();
 
@@ -79,7 +83,8 @@ const CamsTable = () => {
       headerName: 'Option',
       width: 100,
       sortable: false,
-      renderCell: ({ row }) => {
+      renderCell: (props) => {
+        const { id } = props.row;
         const styles = {
           color: 'red',
           cursor: 'pointer',
@@ -87,13 +92,17 @@ const CamsTable = () => {
         };
 
         const remove = () => {
-          console.log('remove');
-          dispatch(removeCamerasAction(row.id));
+          dispatch(removeCamerasAction(id));
+        };
+
+        const edit = () => {
+          setIsOpen(true);
+          setCameraId(id);
         };
 
         return (
           <Stack direction={'row'} spacing={1}>
-            <Box component={EditIcon} sx={styles} />
+            <Box component={EditIcon} onClick={edit} sx={styles} />
             <Box component={CloseIcon} onClick={remove} sx={styles} />
           </Stack>
         );
@@ -102,24 +111,34 @@ const CamsTable = () => {
   ];
 
   return (
-    <Box sx={{ mt: 4 }}>
-      <Box sx={{ display: 'flex', width: '100%' }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <DataGrid
-            rows={data}
-            columns={columns}
-            disableSelectionOnClick
-            disableColumnMenu
-            pageSize={pageSize}
-            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-            rowsPerPageOptions={[10, 20, 30, 50]}
-            pagination
-            style={{ border: 'none' }}
-            autoHeight
-          />
+    <>
+      <Box sx={{ mt: 4 }}>
+        <Box sx={{ display: 'flex', width: '100%' }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <DataGrid
+              rows={data}
+              columns={columns}
+              disableSelectionOnClick
+              disableColumnMenu
+              pageSize={pageSize}
+              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+              rowsPerPageOptions={[10, 20, 30, 50]}
+              pagination
+              style={{ border: 'none' }}
+              autoHeight
+            />
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <EditCamera
+        open={isOpen}
+        setOpen={(value) => {
+          setIsOpen(value);
+          setCameraId('');
+        }}
+        id={cameraId}
+      />
+    </>
   );
 };
 

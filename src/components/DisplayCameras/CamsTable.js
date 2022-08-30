@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAllCamerasAction,
+  removeCamerasAction,
   updateCameraStatusAction,
 } from '../../store/cameras/camerasAction';
 
@@ -78,16 +79,22 @@ const CamsTable = () => {
       headerName: 'Option',
       width: 100,
       sortable: false,
-      renderCell: () => {
+      renderCell: ({ row }) => {
         const styles = {
           color: 'red',
           cursor: 'pointer',
           ':hover': { color: '#6c94dc' },
         };
+
+        const remove = () => {
+          console.log('remove');
+          dispatch(removeCamerasAction(row.id));
+        };
+
         return (
           <Stack direction={'row'} spacing={1}>
             <Box component={EditIcon} sx={styles} />
-            <Box component={CloseIcon} sx={styles} />
+            <Box component={CloseIcon} onClick={remove} sx={styles} />
           </Stack>
         );
       },

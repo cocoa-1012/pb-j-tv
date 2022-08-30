@@ -50,9 +50,7 @@ export const addCamerasAction = (data, callback) => async (dispatch) => {
 
 export const removeCamerasAction = (id) => async (dispatch) => {
   try {
-    const res = await axiosInstance.get(
-      `https://jsonplaceholder.typicode.com/todos/1`
-    );
+    await axiosInstance.delete(`/cameras/${id}`);
     dispatch(remove({ id }));
   } catch (error) {
     console.log(error.message);

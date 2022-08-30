@@ -23,7 +23,7 @@ export const camerasSlice = createSlice({
     },
 
     remove: (state, action) => {
-      state.data = state.reduce((acc, curr) => {
+      state.data = state.data.reduce((acc, curr) => {
         if (curr.id !== action.payload.id) {
           acc.push(curr);
         }

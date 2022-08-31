@@ -27,20 +27,24 @@ export const addSlidePhotoAction = (data, callback) => async (dispatch) => {
   try {
     const formData = new FormData();
     formData.append('name', data.image.name);
-    formData.append('file', data.image);
-    formData.append('file_name', data.image.name);
-    formData.append('file_title', data.image.name);
+    formData.append('file', data.image, data.image.name);
+    formData.append('file_name', data.image.name + '_' + new Date().getTime());
+    formData.append('file_title', data.image.name + '_' + new Date().getTime());
     formData.append('status', 0);
     formData.append('sliderTime', data.sliderTime);
     formData.append('userId', localStorage.getItem('accountSelected'));
 
-    const { data: photo } = await axiosInstance.post(`/slides`, formData, {
+    const res = await axiosInstance.post(`/slides`, formData, {
       headers: {
         'content-type': 'multipart/form-data',
       },
     });
 
-    dispatch(add(photo));
+    const { data: photoData } = await axiosInstance.get(
+      `/slides/${res.data.id}`
+    );
+
+    dispatch(add(photoData));
     callback(true);
   } catch (error) {
     callback(

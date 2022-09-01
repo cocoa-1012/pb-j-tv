@@ -58,7 +58,7 @@ const Content = () => {
         <Item
           key={item.id}
           text={item.message}
-          date={moment(item.dateTime).format(' h:mm:ss a ,MMM D, YYYY ')}
+          date={moment(item.dateTime).format('h:mm:ss a, MMM D, YYYY')}
           height={height}
         />
       ))}

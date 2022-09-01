@@ -35,11 +35,7 @@ const Item = ({ date, text, height = 100 }) => {
   }, [text]);
 
   return (
-    <Box
-      sx={{
-        height,
-      }}
-    >
+    <Box>
       <Box
         as={'div'}
         sx={{
@@ -67,6 +63,7 @@ const Item = ({ date, text, height = 100 }) => {
           py: '10px',
           color: '#000',
           fontSize,
+          height: height - 10 - 60,
         }}
       >
         {text}

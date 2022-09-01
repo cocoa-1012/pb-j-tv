@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import AutoScroll from '@brianmcallister/react-auto-scroll';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import { useInnerSize } from '../../hooks/useInnerSize';
@@ -53,7 +53,7 @@ const Content = () => {
   });
 
   return (
-    <Box as='div' sx={{ overflowY: 'auto', height: windowHeight }}>
+    <AutoScroll height={windowHeight}>
       {allMessages.map((item) => (
         <Item
           key={item.id}
@@ -62,7 +62,7 @@ const Content = () => {
           height={height}
         />
       ))}
-    </Box>
+    </AutoScroll>
   );
 };
 
